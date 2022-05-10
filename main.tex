@@ -1,0 +1,109 @@
+%%%---------------------------------------------------------------%%%
+%%% Wyzsza Szkola Gospodarki Bachelor's Thesis                    %%%
+%%% Prepared by Bruno Axel Kamere                                 %%%
+%%% Inspiration Artur M. Brodzki & Piotr Woźniak's WUT template.  %%%
+%%% Computer Engineering and Mechatronics Department              %%%
+%%% Wyzsza Szkola Gospodarki w Bydgoszczy, 2022                   %%%
+%%%---------------------------------------------------------------%%%
+
+\documentclass[
+    left=2.5cm,         % Sadly, generic margin parameter
+    right=2.5cm,        % doesnt't work, as it is
+    top=2.5cm,          % superseded by more specific
+    bottom=3cm,         % left...bottom parameters.
+    bindingoffset=6mm,  % Optional binding offset.
+    nohyphenation=false % You may turn off hyphenation, if don't like.
+]{config/config-thesis}
+
+\langeng % Use English language
+\graphicspath{img/} % Image path
+\addbibresource{bibliography.bib}
+
+\begin{document}
+
+\EngineerThesis
+\institute{Informatics and Mechatronics}
+\field{Computer Engineering and Mechatronics}
+\title{Cloud Managed Unmanned Aerial System}
+\author{Bruno Axel Kamere}
+\studentnumber{030756}
+\seminarlecturer {Szychta Elżbieta, prof. dr hab. inż.}
+\supervisor{Ocetkiewicz Tomasz, mgr inż.}
+\date{\the\year}
+\maketitle
+
+%--------------------------------
+% Dedication
+%--------------------------------
+
+%--------------------------------
+% Acknowledgements
+%--------------------------------
+
+%--------------------------------
+% Abstract
+%--------------------------------
+\newpage
+\abstract \lipsum[1-3]
+\keywords AWS, UAV, UAS
+
+%--------------------------------
+% Declaration of author's will
+%--------------------------------
+\cleardoublepage
+\pagestyle{plain}
+\makeauthorship
+
+%--------------------------------
+% Table of Contents
+%--------------------------------
+\cleardoublepage
+\tableofcontents
+
+%--------------------------------
+% Chapters - Introduction
+%--------------------------------
+\cleardoublepage
+\pagestyle{headings}
+
+\input{chapters/1-preface}
+
+%--------------------------------
+% Chapters - Theory
+%--------------------------------
+
+%--------------------------------
+% Chapters - Technique and Resources
+%--------------------------------
+
+%--------------------------------
+% Chapters - Setup
+%--------------------------------
+
+%--------------------------------
+% Chapters - Discussion
+%--------------------------------
+
+%--------------------------------
+% Chapters - Conclusion
+%--------------------------------
+
+%--------------------------------
+% Chapters - List of Figures
+%--------------------------------
+
+%--------------------------------
+% Chapters - Nomenclature
+%--------------------------------
+
+%--------------------------------
+% Chapters - References
+%--------------------------------
+
+%--------------------------------
+% Chapters - Appendix
+%--------------------------------
+\newpage
+\section{Summatio}
+
+\end{document}
