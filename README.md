@@ -1,4 +1,4 @@
-# Bachelor's of Science in Computer Engineering and Mechatronics Thesis
+# Bachelor's of Science in Computer Engineering and Mechatronics LaTeX Thesis
 
 ---
 
