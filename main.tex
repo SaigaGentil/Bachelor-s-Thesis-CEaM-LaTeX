@@ -13,7 +13,7 @@
     bottom=3cm,         % left...bottom parameters.
     bindingoffset=6mm,  % Optional binding offset.
     nohyphenation=false % You may turn off hyphenation, if don't like.
-]{config/config-thesis}
+]{config/classes/config-thesis}
 
 \langeng % Use English language
 \graphicspath{img/} % Image path
@@ -35,22 +35,22 @@
 %--------------------------------
 % Dedication
 %--------------------------------
+\include{00. Dedication/dedication.tex}
 
 %--------------------------------
 % Acknowledgements
 %--------------------------------
+\include{10. Acknowledgments/acknowledgments.tex}
 
 %--------------------------------
 % Abstract
 %--------------------------------
-\newpage
-\abstract \lipsum[1-3]
-\keywords AWS, UAV, UAS
+\include{20. Abstract/abstract.tex}
 
 %--------------------------------
 % Declaration of author's will
 %--------------------------------
-\cleardoublepage
+\newpage
 \pagestyle{plain}
 \makeauthorship
 
@@ -59,6 +59,25 @@
 %--------------------------------
 \cleardoublepage
 \tableofcontents
+
+%--------------------------------
+% List of Figures
+%--------------------------------
+\cleardoublepage
+\listoffigurestoc
+
+%--------------------------------
+% List of Tables
+%--------------------------------
+\cleardoublepage
+\listoftablestoc
+
+%--------------------------------
+% Nomenclature
+%--------------------------------
+
+\printnomenclature
+% \acronymlist
 
 %--------------------------------
 % Chapters - Introduction
@@ -99,11 +118,11 @@
 %--------------------------------
 % Chapters - References
 %--------------------------------
+\cleardoublepage
+\printbibliography
 
 %--------------------------------
 % Chapters - Appendix
 %--------------------------------
-\newpage
-\section{Summatio}
 
 \end{document}
