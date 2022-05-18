@@ -11,7 +11,7 @@
 \LoadClass[
     12pt,
     twoside
-]{article}
+]{book}
 
 %--------------------------------------
 % Define class parameters
@@ -66,6 +66,8 @@
 \RequirePackage{xkeyval}    % Keys and class parameters
 \RequirePackage{xspace}     % Remove duplicated spaces
 \RequirePackage[intoc]{nomencl} % Nomenclature
+\RequirePackage[nottoc]{tocbibind}
+\RequirePackage[title,titletoc]{appendix}
 
 %--------------------------------------
 % PdfTeX specific configuration
@@ -184,30 +186,42 @@
 %--------------------------------
 % Table of Contents setup
 %--------------------------------
-\setlength{\cftbeforesecskip}{2pt}
-\renewcommand{\cftsecfont}{\bf\normalsize}
-\renewcommand{\cftsecpagefont}{\normalfont}
-\renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
-\renewcommand{\cftsecdotsep}{\cftdotsep}
-\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\contentsname}{Table of contents}
+\renewcommand{\listfigurename}{List of figures}
+\renewcommand{\listtablename}{List of tables}
 
-%--------------------------------
-% List of Figures setup
-%--------------------------------
-\renewcommand*\l@figure{\@dottedtocline{1}{0.5em}{2.25em}}
-\newcommand{\listoffigurestoc}{
-    \listoffigures
-    \addcontentsline{toc}{section}{\listfigurename}
+% Hides Contents appearing from TOC, but adds it to bookmarks
+\let\temptableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{
+  \cleardoublepage
+  \pdfbookmark[0]{\contentsname}{Contents}
+  \temptableofcontents
 }
 
-%--------------------------------
-% List of Tables setup
-%--------------------------------
-\renewcommand*\l@table{\@dottedtocline{1}{0.5em}{2.25em}}
-\newcommand{\listoftablestoc}{
-    \listoftables
-    \addcontentsline{toc}{section}{\listtablename}
-}
+% \setlength{\cftbeforesecskip}{2pt}
+% \renewcommand{\cftsecfont}{\bf\normalsize}
+% \renewcommand{\cftsecpagefont}{\normalfont}
+% \renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
+% \renewcommand{\cftsecdotsep}{\cftdotsep}
+% \renewcommand{\contentsname}{Table of Contents}
+
+%%--------------------------------
+%% List of Figures setup
+%%--------------------------------
+%\renewcommand*\l@figure{\@dottedtocline{1}{0.5em}{2.25em}}
+%\newcommand{\listoffigurestoc}{
+%    \listoffigures
+%    \addcontentsline{toc}{section}{\listfigurename}
+%}
+%
+%%--------------------------------
+%% List of Tables setup
+%%--------------------------------
+%\renewcommand*\l@table{\@dottedtocline{1}{0.5em}{2.25em}}
+%\newcommand{\listoftablestoc}{
+%    \listoftables
+%    \addcontentsline{toc}{section}{\listtablename}
+%}
 
 %--------------------------------
 % Header & footer
@@ -311,7 +325,7 @@
 %--------------------------------
 % Abstract
 %--------------------------------
-\renewcommand{\abstract}{
+\newcommand{\abstract}{
     \thispagestyle{plain}
     \begin{center}\textbf{\Large\@title}\end{center}
     \textbf{\\ Abstract.\xspace}
@@ -504,7 +518,7 @@
         \fi
     \end{center}
 
-    \pagenumbering{roman}
+    \pagenumbering{arabic}
     \setcounter{page}{1}
 }
 

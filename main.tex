@@ -31,7 +31,7 @@
 \supervisor{Ocetkiewicz Tomasz, mgr inż.}
 \date{\the\year}
 \maketitle
-
+\frontmatter
 %--------------------------------
 % Dedication
 %--------------------------------
@@ -60,17 +60,20 @@
 \cleardoublepage
 \tableofcontents
 
+
 %--------------------------------
 % List of Figures
 %--------------------------------
 \cleardoublepage
-\listoffigurestoc
+\listoffigures
+% \listoffigurestoc
 
 %--------------------------------
 % List of Tables
 %--------------------------------
 \cleardoublepage
-\listoftablestoc
+\listoftables
+% \listoftablestoc
 
 %--------------------------------
 % Nomenclature
@@ -79,44 +82,44 @@
 \printnomenclature
 % \acronymlist
 
+\mainmatter
 %--------------------------------
 % Chapters - Introduction
 %--------------------------------
 \cleardoublepage
 \pagestyle{headings}
 
-\input{chapters/1-preface}
+\include{30. Introduction/introduction.tex}
+
+% \input{chapters/1-preface}
 
 %--------------------------------
 % Chapters - Theory
 %--------------------------------
+\include{40. Chapter 1 - Theory/theory.tex}
 
 %--------------------------------
 % Chapters - Technique and Resources
 %--------------------------------
+\include{50. Chapter 2 - Technique and Approach/approach.tex}
 
 %--------------------------------
 % Chapters - Setup
 %--------------------------------
+\include{60. Chapter 3 - Setup/setup.tex}
 
 %--------------------------------
 % Chapters - Discussion
 %--------------------------------
+\include{70. Discussion/discussion.tex}
 
 %--------------------------------
 % Chapters - Conclusion
 %--------------------------------
+\include{80. Conclusion/conclusion.tex}
 
 %--------------------------------
-% Chapters - List of Figures
-%--------------------------------
-
-%--------------------------------
-% Chapters - Nomenclature
-%--------------------------------
-
-%--------------------------------
-% Chapters - References
+% Chapters - Bibliography
 %--------------------------------
 \cleardoublepage
 \printbibliography
