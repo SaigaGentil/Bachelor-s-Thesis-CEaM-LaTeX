@@ -13,3 +13,6 @@
 *.out*
 *.nlo
 *.nls
+*.docx
+*.fdb_latexmk
+*.synctex.gz
