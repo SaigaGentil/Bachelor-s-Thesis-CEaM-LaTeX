@@ -15,10 +15,31 @@
     nohyphenation=false % You may turn off hyphenation, if don't like.
 ]{config/classes/config-thesis}
 
-\langeng % Use English language
-\graphicspath{img/} % Image path
+%--------------------------------
+% Use English language (Other languages to be added in the future)
+%--------------------------------
+\langeng
+
+%--------------------------------
+% Image path
+%--------------------------------
+\graphicspath{
+    {img/}
+    {30. introduction/img/}
+    {40. chapter 1 - theory/img/}
+    {50. chapter 2 - technique and approach/img/}
+    {60. chapter 3 - setup/img/}
+}
+
+%--------------------------------
+% Reference the bibliography file
+%--------------------------------
 \addbibresource{bibliography.bib}
 
+
+%%%---------------------------------------------------------------%%%
+%%% Start main document                                           %%%
+%%%---------------------------------------------------------------%%%
 \begin{document}
 
 \EngineerThesis
@@ -32,6 +53,7 @@
 \date{\the\year}
 \maketitle
 \frontmatter
+
 %--------------------------------
 % Dedication
 %--------------------------------
@@ -129,3 +151,6 @@
 %--------------------------------
 
 \end{document}
+%%%---------------------------------------------------------------%%%
+%%% End main document                                             %%%
+%%%---------------------------------------------------------------%%%
