@@ -46,15 +46,24 @@ For a UAV to perform any of the above, it needs to meet certain criteria, a UAV 
               \item	Sensor data.
               \item	Send the data frequently for real-time or near real-time communication.
               \item	Be able to react and if necessary, take evasive maneuvers when:
-              \item	On collision course.
-              \item	The batteries are low on power.
-              \item	Out of connectivity range.
+                    \begin{itemize}
+                        \item On collision course.
+                        \item The batteries are low on power.
+                        \item Out of connectivity range.
+                    \end{itemize}
           \end{itemize}
 \end{itemize}
 
 
 %---------------------------------1.2 Problem definition---------------------------------%
 \section{Problem definition}
+
+\begin{figure}[!h]
+    \label{fig:uas-hhld}
+    \centering \includegraphics[width=1\linewidth]{UAS HHLD.png}
+    \caption{System High High Level Design.}
+    \source{Own creation.}
+\end{figure}
 
 \nomenclature[z-UAV]{UAV}{Unmanned Aerial Vehicle}
 \nomenclature[z-UAS]{UAS}{Unmanned Aerial System}
