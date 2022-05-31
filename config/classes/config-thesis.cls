@@ -51,6 +51,7 @@
 \RequirePackage{fancyhdr}   % Custom header/footer styles
 \RequirePackage{fourier}    % Adobe Utopia font
 \RequirePackage{graphicx}   % Enhanced images support
+\RequirePackage{subcaption} 
 \RequirePackage{ifluatex}   % LuaTeX-specific options
 \RequirePackage{ifpdf}      % pdfTeX-specific options
 \RequirePackage{ifxetex}    % XeTeX-specific options
