@@ -2352,10 +2352,12 @@
     <bcf:citekey order="2">samaanorientxxi2022</bcf:citekey>
     <bcf:citekey order="3">droneslevy2022</bcf:citekey>
     <bcf:citekey order="4">whoafricarw2020</bcf:citekey>
-    <bcf:citekey order="5">vasileprisacariujdrm2017</bcf:citekey>
-    <bcf:citekey order="6">samaanorientxxi2022</bcf:citekey>
-    <bcf:citekey order="7">droneslevy2022</bcf:citekey>
-    <bcf:citekey order="8">whoafricarw2020</bcf:citekey>
+    <bcf:citekey order="5">Pedro2020</bcf:citekey>
+    <bcf:citekey order="6">vasileprisacariujdrm2017</bcf:citekey>
+    <bcf:citekey order="7">samaanorientxxi2022</bcf:citekey>
+    <bcf:citekey order="8">droneslevy2022</bcf:citekey>
+    <bcf:citekey order="9">whoafricarw2020</bcf:citekey>
+    <bcf:citekey order="10">Pedro2020</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
