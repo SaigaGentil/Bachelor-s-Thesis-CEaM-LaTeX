@@ -37,10 +37,6 @@
 \RequirePackage{amssymb}    % Advanced math symbols
 \RequirePackage{amsthm}     % Theorems typesetting
 \RequirePackage{array}      % Advanced table column formats
-\RequirePackage[            % Bibliography in biber
-    backend=biber,
-    style=ieee
-]{biblatex}
 \RequirePackage[            % Custom figure and table captions
     font=small,
     labelfont=bf,
@@ -142,6 +138,12 @@
     \end{luacode}
 \fi
 
+\RequirePackage[            % Bibliography in biber. It has to be loaded after the inputenc package.
+    backend=biber,
+    style=ieee
+]{biblatex}
+\RequirePackage{csquotes}  % Load csquotes package. It has to be loaded after the inputenc package.
+
 %--------------------------------
 % Produce clickable hyperlinks
 % in ToC, LoF and LoT
@@ -233,11 +235,11 @@
 % Header & footer
 %--------------------------------
 % \SetSectionFormatting{section}{0.5cm}{\FormatHangHeading{\Large}}{0.5cm}
-\let\oldsection\section
-\renewcommand{\section}{
-    \thispagestyle{plain}
-    \oldsection
-}
+% \let\oldsection\section
+% \renewcommand{\section}{
+%     \thispagestyle{plain}
+%     \oldsection
+% }
 
 \fancypagestyle{plain}{
     \fancyhf{}
@@ -249,16 +251,16 @@
     \fancyhead{}
     \renewcommand{\headrulewidth}{1pt}
     \fancyheadoffset{0cm}
-    \fancyhead[RO]{\nouppercase{\thesection.\hspace{8pt}\leftmark}}
-    \fancyhead[LE]{\nouppercase{\thesection.\hspace{8pt}\leftmark}}
+    \fancyhead[RO]{\nouppercase{\thesection.\hspace{8pt}\rightmark}}
+    \fancyhead[LE]{\nouppercase{\thechapter.\hspace{8pt}\leftmark}}
     \fancyfoot{}
     \fancyfoot[LE,RO]{\thepage}
 }
+\setlength{\headheight}{15pt}
 \pagestyle{headings}
 
-\renewcommand{\sectionmark}[1]{
-    \markboth{#1}{#1}
-}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}{}}
 
 %--------------------------------
 % Set default list style
