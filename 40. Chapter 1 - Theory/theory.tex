@@ -23,12 +23,38 @@ bla bla
 \section{Amazon Web Services}
 Amazon Web Services, commonly known as AWS, is a cloud platform provided by Amazon that provides various service offerings such as platform as a service, PaaS, and infrastructure as a service, IaaS\cite{awswhatisaws2022}. AWS makes it easy for developers, engineers and businesses to deploy scalable, resilient, agile and highly available infrastructures for databases, servers, applications, storage, analytics, \textit{et cetera}. AWS offers attractive and cost saving payment strategies of which there are pay-as-you-go, save when you commit, and pay less by using more\cite{awspricing2022}.
 
-Cloud computing is an emerging technilogy that has revolutionized how businesses go online. Cloud computing has been and still is of great use in various industries, including the aerospace and energy industries. Burak et al developed a cloud and edge solution running on AWS that aimed at increasing turbine maintanance inspections' efficiency through automation and a serverless AWS architecture while reducing operations cost\cite{burakawswindfarm2021}. A serverless architecture is a type of architecture where servers' configuration and patching is taken care by the provider, thus allowing developers and engineers to focus on the actual resources, applications, databases \textit{et cetera}, to be deployed. The solution proposed by Burak et al was comprised of drones, machine learning and Internet of Things running on cloud and edge.
+Cloud computing is an emerging technology that has revolutionized how businesses go online. Cloud computing has been and still is of great use in various industries, including the aerospace and energy industries. Burak et al developed a cloud and edge solution running on AWS that aimed at increasing turbine maintanance inspections' efficiency through automation and a serverless AWS architecture while reducing operations cost\cite{burakawswindfarm2021}. A serverless architecture is a type of architecture where servers' configuration and patching is taken care by the provider, thus allowing developers and engineers to focus on the actual resources, applications, databases \textit{et cetera}, to be deployed. The solution proposed by Burak et al was comprised of drones, machine learning and Internet of Things running on cloud and edge.
 
 The proposed solution in this thesis also takes advantage of what AWS and clound computing offers. Several components, like the ground control system, of the proposed solution are running on AWS. See the high-high-level design in figure \ref{fig:uas-hhld}.
 
 \subsection{Infrastructure as code}
-bla bla
+Infrastructure as Code also known as IaC, a technique very often used in the DevOps and automation community, is an infrastructure that is provisioned through code and scripts written in familiar programming languages like Python, PHP, Node.JS, C\# \textit{et cetera}. The infrastructure deployed through code can be servers, databases, firewalls, data centers \textit{et cetera}. The main advantages of defining an infrastructure as code are:
+
+\begin{itemize}
+    \item Improved efficiency and consistency.
+    \item Reduced human error.
+    \item Infrastructure agility. An infrastructure defined as code can be deployed as many times as needed, which reduces the effort invested by developers in case a replica of an environment is needed elsewhere.
+    \item It allows developers to take advantage of programming languages features like loops, variables \textit{et cetera} to build more agile infrastructures.
+    \item The infrastructure can be versioned and tightly controlled. Since the infrastructure is basically standard code, it can be versioned with various versioning tools like Git or Subversion. This facilitates maintanance and makes the infrastructure easy to be rolled back, in case of issues.
+    \item It helps with cost savings. Since the whole infrastructure is basically deployed automatically through code, engineers can then shift their focus to work on other important tasks.
+\end{itemize}
+
+In this thesis, Infrastructure as Code is used to its outmost potential. The AWS infrastructure is deployed as code using the AWS proprietary software development framework called AWS Cloud Development Kit or AWS CDK. AWS CDK is an open source kit provided by AWS that allows engineers to define IT infrastructures on AWS using familiar programming languages.
+
+\begin{center}
+    \captionsetup{type=listing}
+    \inputminted[
+        frame=single,
+        framesep=2mm,
+        baselinestretch=1.2,
+        fontsize=\footnotesize,
+        breaklines,
+        breakanywhere,
+        linenos
+    ]{python}{code/7c11d95d3b55be021475679db7f9f9dd/route_53_records.py}
+    \captionof{listing}{helloskygroup.com AWS CDK Python Route 53 snippet.}
+    \label{}
+\end{center}
 
 \section{Simulation}
 bla bla
@@ -72,3 +98,5 @@ bla bla
 \nomenclature[z-PaaS]{PaaS}{Platform as a Service}
 \nomenclature[z-ML]{ML}{Machine Learning}
 \nomenclature[z-ML]{ML}{Machine Learning}
+\nomenclature[z-IaC]{IaC}{Infrastructure as Code}
+\nomenclature[z-CDK]{CDK}{Cloud Development Kit}
