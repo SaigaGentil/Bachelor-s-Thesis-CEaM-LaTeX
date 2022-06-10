@@ -53,7 +53,6 @@
 \RequirePackage{ifxetex}    % XeTeX-specific options
 \RequirePackage{kantlipsum} % English kantian-style lipsum
 \RequirePackage{lipsum}     % Lorem ipsum
-\RequirePackage{listings}   % Code listings
 \RequirePackage{longtable}  % Multi-page tables
 \RequirePackage{multirow}   % Advanced table cells
 \RequirePackage{setspace}   % Set space between lines
@@ -65,6 +64,30 @@
 \RequirePackage[intoc]{nomencl} % Nomenclature
 \RequirePackage[nottoc]{tocbibind}
 \RequirePackage[title,titletoc]{appendix}
+\RequirePackage{minted}     % Highlighted code listing
+\RequirePackage{xcolor}     % to access the named colour LightGray
+
+
+%--------------------------------------
+% Code listing
+%--------------------------------------
+\RequirePackage{listings}   % Code listings
+\lstset{
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+%--------------------------------------
+% Code listing with mint package
+%--------------------------------------
+\definecolor{LightGray}{gray}{0.9}
+\renewcommand\listoflistingscaption{List of Source Codes}
+\renewcommand{\listoflistings}{
+  \addcontentsline{toc}{chapter}{\listoflistingscaption}
+  \listof{listing}{\listoflistingscaption}
+}
 
 %--------------------------------------
 % PdfTeX specific configuration
