@@ -39,7 +39,7 @@ Infrastructure as Code also known as IaC, a technique very often used in the Dev
     \item It helps with cost savings. Since the whole infrastructure is basically deployed automatically through code, engineers can then shift their focus to work on other important tasks.
 \end{itemize}
 
-In this thesis, Infrastructure as Code is used to its outmost potential. The AWS infrastructure is deployed as code using the AWS proprietary software development framework called AWS Cloud Development Kit or AWS CDK. AWS CDK is an open source kit provided by AWS that allows engineers to define IT infrastructures on AWS using familiar programming languages.
+In this thesis, Infrastructure as Code is used to its outmost potential. The AWS infrastructure is deployed as code using the AWS proprietary software development framework called AWS Cloud Development Kit or AWS CDK. AWS CDK is an open source kit provided by AWS that allows engineers to define IT infrastructures on AWS using familiar programming languages. In the source code \ref{code:route_53_records} is an example snippet from the AWS CDK app developed for the proposed solution in this thesis. The snippet represents a part that adds DNS records to the AWS Route 53 service using standard Python code.
 
 \begin{center}
     \captionsetup{type=listing}
@@ -51,9 +51,9 @@ In this thesis, Infrastructure as Code is used to its outmost potential. The AWS
         breaklines,
         breakanywhere,
         linenos
-    ]{python}{code/7c11d95d3b55be021475679db7f9f9dd/route_53_records.py}
+    ]{python}{config/code/7c11d95d3b55be021475679db7f9f9dd/route_53_records.py}
     \captionof{listing}{helloskygroup.com AWS CDK Python Route 53 snippet.}
-    \label{}
+    \label{code:route_53_records}
 \end{center}
 
 \section{Simulation}
@@ -63,35 +63,39 @@ bla bla
 bla bla
 
 \section{Graphics and software development}
-bla bla
+The solution proposed in this thesis was built using various software development, and design tools. The choice of tools is really key to an organised and well managed project development, therefore it was important to choose the right tools for the right tools to help get the expected outcome from them.
+
+In the next subsections, various tools during the solution development are going to be listed and discussed.
 
 \subsection{Microsoft Visual studio code}
 \label{subsec:ms-visual-studio-code}
-bla bla
+Visual studio code or VS code is a source code editor provided by Microsoft. It was used in this thesis as a code editor to write various codes and scripts. Microsoft VS code free license used allows users to use it for personal and commercial use.<CITE LICENSE>.
 
 \subsection{PyCharm by JetBrains}
 \label{subsec:pycharm}
-bla bla
+The AWS infrastructure was built as code using Python programming language. Due to its robustness and great Python support, Pycharm by JetBrains integrated development devolpment or IDE was the go to choice.
 
 \subsection{PhpStorm by JetBrains}
 \label{subsec:phpstorm}
-bla bla
+PhpStorm is an integrated development environment created by JetBrains specifically for PHP programming language. The web interface from which the proposed Unmanned Aerial System is controlled from is built with PHP's Laravel framework, and PHP storm is perfectly optimised for development of PHP software.
 
 \subsection{Affinity Designer}
 \label{subsec:affinity-designer}
-bla bla
+Several UI components used across the project like icons and logos, like in figure \ref{fig:hs-group-logos} for example, were designed using Affinity Designer. Affinity Designer is a graphics tool used to design and create logos, icons, concept arts, UI designs \textit{et cetera}.
 
 \subsection{GitHub}
 \label{subsec:github}
-bla bla
+One of the fundamentals of software development and coding projects generally is to version the code so that changes can be tracked overtime. Making sure that a project is versioned and maintained centrally in a repository is very important, especially where teams are working together on a similar project. Git, one of the softwares used for code versioning, was used in this project to track changes across various components of the overall project. In fact this thesis document itself is versioned using Git <ADD LINK TO THIS THESIS ON GITHUB>, alongside other components of the proposed solution. Github then comes into play to act as the single point of truth where multiple Git repositories can be pushed and managed from.
+<ADD IMAGE SHOWING A TYPICAL BASIC GIT - GITHUB FLOW>
 
 \subsection{Microsoft Visio}
 \label{subsec:ms-visio}
-bla bla
+Microsoft Visio is an application part of the Microsoft office family that is used for digramming and graphics visualization. It is used to build architecture diagrams and many more. In this project, Microsoft Visio was used to draw and create architecture design diagrams of the proposed solution.
+<ADD REFERENCE TO AN HLD>
 
 \section{Law and regulation}
-bla bla
-
+The aerospace industry is one of the highly regulated industries. And this is so for a reason, mainly safety and airspace security.
+<FINISH SECTION>.
 
 \nomenclature[z-AWS]{AWS}{Amazon Web Services}
 \nomenclature[z-IaaS]{IaaS}{Infrastructure as a Service}
