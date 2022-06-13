@@ -17,7 +17,7 @@ Authored on: 01 January 2022
 
 [TOC]
 
-## Thesis Overview?
+## Introduction
 
 ---
 
@@ -27,7 +27,7 @@ The thesis was written with Latex. Latex is a software systen used for document 
 
 Latex is free to use and has no license fees. More details on latex can be found on the [official latex project site](https://www.latex-project.org/).
 
-## Topic / Problem
+## Topic of research / work
 
 ---
 
