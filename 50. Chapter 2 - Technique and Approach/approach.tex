@@ -11,7 +11,120 @@ In this chapter, the solution is going to be explained in details. The reason be
 \section{Solution description}
 
 
-\section{Network design}
+\section{Network access and security}
+One of the challenges with implementing a networked system, especially on cloud platforms like AWS, is ensuring that traffic flows in the expected way with proper security in place. The proposed solution, being a networked solution involving communications to and from various applications, has a rigorous network design. Figure <REFERENCE TO THE NETWORK DESIGN IMAGE> shows how network within AWS.
+
+AWS has a concept of Virtual Private Cloud also known as VPC, which is simply an isolated private network that can be broken down into various subnets depending on the architecture. The proposed solution has 3 subnets, public, private and isolated-private subnets for each availability zone
+
+\subsection{Public subnet}
+\label{public-subnet}
+The public subnet in this proposed solution does not contain any resources, except a Network Address Translation or NAT gateway that is used by resources in the private subnet to access the internet. Table \ref{table:public-subnet-inbound} and \ref{table:public-subnet-outbound} show the inbound and outbound traffic rules respectively configured on the public subnet network access control list or NACL.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{6}{|c|}{Inbound traffic}                               \\
+        \hline
+        Rule & Type        & Protocol & Port range & Source    & Allow/Deny \\
+        \hline
+        100  & HTTP (80)   & TCP (6)  & 80         & 0.0.0.0/0 & Allow      \\
+        \hline
+        110  & HTTPS (443) & TCP (6)  & 443        & 0.0.0.0/0 & Allow      \\
+        \hline
+        120  & Custom TCP  & TCP (6)  & 1024-65535 & 0.0.0.0/0 & Allow      \\
+        \hline
+        *    & All IPV4    & All      & All        & 0.0.0.0/0 & Deny       \\
+        \hline
+    \end{tabular}
+    \caption{Public subnet NACL inbound traffic rules}
+    \label{table:public-subnet-inbound}
+\end{table}
+
+\begin{itemize}
+    \item \textbf{Rule 100:} Allows inbound HTTP traffic on port 80 towards any IPv4 address on the internet.
+    \item \textbf{Rule 110:} Allows inbound HTTPS traffic on port 443 towards any IPv4 address on the internet.
+    \item \textbf{Rule 120:} Allows returning TCP traffic from the internet responding to requests from the subnet. The specified port ranges are ephemeral ports as defined by the Internet Assigned Number Authority or IANA and Internet Engineering Task Force or IETF in their Request for Comments or RFC 6056 document \cite{rfc6056}.
+    \item \textbf{Rule *:} Block every other non previously evaluated IPv4 traffic.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{6}{|c|}{Outbound traffic}                                \\
+        \hline
+        Rule & Type        & Protocol & Port range & Destination & Allow/Deny \\
+        \hline
+        100  & HTTP (80)   & TCP (6)  & 80         & 0.0.0.0/0   & Allow      \\
+        \hline
+        110  & HTTPS (443) & TCP (6)  & 443        & 0.0.0.0/0   & Allow      \\
+        \hline
+        120  & Custom TCP  & TCP (6)  & 1024-65535 & 0.0.0.0/0   & Allow      \\
+        \hline
+        *    & All IPV4    & All      & All        & 0.0.0.0/0   & Deny       \\
+        \hline
+    \end{tabular}
+    \caption{Public subnet NACL outbound traffic rules}
+    \label{table:public-subnet-outbound}
+\end{table}
+
+The rules explanation are similar to those for inbound traffic in table \ref{table:public-subnet-inbound}, except that instead of inbound it is outbound.
+
+\subsection{Private subnet}
+\label{private-subnet}
+Most of the infrastructure components are deployed in the private subnet where only specific traffic from the public and isolated-private subnets are allowed in. In this subnet is where the UAV command and control center user interface is deployed, in containers using the AWS Fargate serverless service. The rules for this subnet have to be carefully defined so that;
+
+\begin{itemize}
+    \item Fargate services can pull docker images from docker hub public repositories on the internet.
+    \item The UAV, and several command and control application services can talk to each other.
+\end{itemize}
+
+Table ... and ... show the inbound and outbound traffic rules respectively configured on the private subnet network access control list or NACL.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{6}{|c|}{Inbound traffic}                                 \\
+        \hline
+        Rule & Type        & Protocol & Port range & Source      & Allow/Deny \\
+        \hline
+        100  & HTTP (80)   & TCP (6)  & 80         & 0.0.0.0/0   & Allow      \\
+        \hline
+        110  & HTTPS (443) & TCP (6)  & 443        & 0.0.0.0/0   & Allow      \\
+        \hline
+        120  & Custom TCP  & TCP (6)  & 1024-65535 & 0.0.0.0/0   & Allow      \\
+        \hline
+        130  & Custom TCP  & TCP (6)  & 3306       & 10.0.4.0/28 & Allow      \\
+        \hline
+        140  & Custom TCP  & TCP (6)  & 3306       & 10.0.5.0/28 & Allow      \\
+        \hline
+        *    & All IPV4    & All      & All        & 0.0.0.0/0   & Deny       \\
+        \hline
+    \end{tabular}
+    \caption{Private subnet NACL inbound traffic rules}
+    \label{table:private-subnet-inbound}
+\end{table}
+
+\subsection{Isolated-private subnet}
+\label{isolated-private-subnet}
 
 
 Describe the solution on a higher level. Discuss HLDs.
+
+\nomenclature[z-AZ]{AZ}{Availability Zone}
+\nomenclature[z-NAT]{NAT}{Network Address Translation}
+\nomenclature[z-VPC]{VPC}{Virtual Private Cloud}
+\nomenclature[z-HTTP]{HTTP}{Hypertext Transfer Protocol}
+\nomenclature[z-HTTPS]{HTTPS}{Hypertext Transfer Protocol Secured}
+\nomenclature[z-ECS]{ECS}{Elastic Container Service}
+\nomenclature[z-NACL]{NACL}{Network Access Control List}
+\nomenclature[z-EC2]{EC2}{Elastic Cloud Compute}
+\nomenclature[z-TCP]{TCP}{Transmisison Control Protocol}
+\nomenclature[z-RDS]{RDS}{Relational Database Service}
+\nomenclature[z-ALB]{ALB}{Application Load Balancer}
+\nomenclature[z-RDS]{RDS}{Relational Database Service}
+\nomenclature[z-IANA]{IANA}{Internet Assigned Number Authority}
+\nomenclature[z-IETF]{IETF}{Internet Engineering Task Force}
+\nomenclature[z-RFC]{RFC}{Request for Comments}
