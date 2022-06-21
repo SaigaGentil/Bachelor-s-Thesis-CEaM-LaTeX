@@ -2,7 +2,7 @@
 % 50. Technique and Approach
 % ------------------------------------------------------------------------
 
-\chapter{Methodology}
+\chapter{Methodology and setup}
 In this chapter, the solution is going to be explained in details. The reason behind various design choices is going to be explained elaborately as well as the technical aspects of the project.
 
 \section{Approach}
@@ -80,7 +80,7 @@ Most of the infrastructure components are deployed in the private subnet where o
     \item The UAV, and several command and control application services can talk to each other.
 \end{itemize}
 
-Table ... and ... show the inbound and outbound traffic rules respectively configured on the private subnet network access control list or NACL.
+Table \ref{table:private-subnet-inbound} and \ref{table:private-subnet-outbound} show the inbound and outbound traffic rules respectively configured on the private subnet network access control list or NACL.
 
 \begin{table}[H]
     \centering
@@ -107,9 +107,54 @@ Table ... and ... show the inbound and outbound traffic rules respectively confi
     \label{table:private-subnet-inbound}
 \end{table}
 
+\begin{itemize}
+    \item \textbf{Rule 100:} Allows inbound HTTP traffic on port 80. This is so that the AWS Elastic Container Service or ECS tasks can pull images from the public Dockerhub registry.
+    \item \textbf{Rule 110:} Allows inbound HTTPS traffic on port 443.
+    \item \textbf{Rule 120:} Allows returning TCP traffic from the internet responding to requests from the subnet.
+    \item \textbf{Rule 130 and Rule 140:} Allows inbound traffic on port 3306 from MySQL database running in the AWS Relational Database Service or AWS within the isolated-private subnets of both the Availability Zones.
+    \item \textbf{Rule *:} Blocks every other non previously evaluated IPv4 traffic.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{6}{|c|}{Outbound traffic}                                \\
+        \hline
+        Rule & Type        & Protocol & Port range & Destination & Allow/Deny \\
+        \hline
+        100  & HTTP (80)   & TCP (6)  & 80         & 0.0.0.0/0   & Allow      \\
+        \hline
+        110  & HTTPS (443) & TCP (6)  & 443        & 0.0.0.0/0   & Allow      \\
+        \hline
+        120  & Custom TCP  & TCP (6)  & 1024-65535 & 0.0.0.0/0   & Allow      \\
+        \hline
+        130  & Custom TCP  & TCP (6)  & 3306       & 10.0.4.0/28 & Allow      \\
+        \hline
+        140  & Custom TCP  & TCP (6)  & 3306       & 10.0.5.0/28 & Allow      \\
+        \hline
+        *    & All IPV4    & All      & All        & 0.0.0.0/0   & Deny       \\
+        \hline
+    \end{tabular}
+    \caption{Private subnet NACL outbound traffic rules}
+    \label{table:private-subnet-outbound}
+\end{table}
+
+\begin{itemize}
+    \item \textbf{Rule 100:} Allows outbound HTTP traffic on port 80 towards any IPv4 address.
+    \item \textbf{Rule 110:} Allows outbound HTTPS traffic on port 443 towards any IPv4 address.
+    \item \textbf{Rule 120:} Allows all outbound response TCP traffic.
+    \item \textbf{Rule *:} Blocks every other non previously evaluated IPv4 traffic.
+\end{itemize}
+
+<TALK ABOUT SECURITY GROUPS>
+
 \subsection{Isolated-private subnet}
 \label{isolated-private-subnet}
 
+The isolated-private subnet hosts the MySQL database running in AWS Relational Database Service. This subnet only talks to the private subnet, and has no direct connection to the internet. This improves the infrastructure security through not exposing the database directly to the internet.
+
+<ADD NETWORK FLOW DESIGNS>
 
 Describe the solution on a higher level. Discuss HLDs.
 
