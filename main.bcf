@@ -2353,19 +2353,23 @@
     <bcf:citekey order="3">droneslevy2022</bcf:citekey>
     <bcf:citekey order="4">whoafricarw2020</bcf:citekey>
     <bcf:citekey order="5">Pedro2020</bcf:citekey>
-    <bcf:citekey order="6">awswhatisaws2022</bcf:citekey>
-    <bcf:citekey order="7">awspricing2022</bcf:citekey>
-    <bcf:citekey order="8">burakawswindfarm2021</bcf:citekey>
-    <bcf:citekey order="9">rfc6056</bcf:citekey>
-    <bcf:citekey order="10">vasileprisacariujdrm2017</bcf:citekey>
-    <bcf:citekey order="11">samaanorientxxi2022</bcf:citekey>
-    <bcf:citekey order="12">droneslevy2022</bcf:citekey>
-    <bcf:citekey order="13">whoafricarw2020</bcf:citekey>
-    <bcf:citekey order="14">Pedro2020</bcf:citekey>
-    <bcf:citekey order="15">awswhatisaws2022</bcf:citekey>
-    <bcf:citekey order="16">awspricing2022</bcf:citekey>
-    <bcf:citekey order="17">burakawswindfarm2021</bcf:citekey>
-    <bcf:citekey order="18">rfc6056</bcf:citekey>
+    <bcf:citekey order="6">awsgerenewableenergy</bcf:citekey>
+    <bcf:citekey order="7">awswhatisaws2022</bcf:citekey>
+    <bcf:citekey order="8">awspricing2022</bcf:citekey>
+    <bcf:citekey order="9">awsregionsandazs</bcf:citekey>
+    <bcf:citekey order="10">burakawswindfarm2021</bcf:citekey>
+    <bcf:citekey order="11">rfc6056</bcf:citekey>
+    <bcf:citekey order="12">vasileprisacariujdrm2017</bcf:citekey>
+    <bcf:citekey order="13">samaanorientxxi2022</bcf:citekey>
+    <bcf:citekey order="14">droneslevy2022</bcf:citekey>
+    <bcf:citekey order="15">whoafricarw2020</bcf:citekey>
+    <bcf:citekey order="16">Pedro2020</bcf:citekey>
+    <bcf:citekey order="17">awsgerenewableenergy</bcf:citekey>
+    <bcf:citekey order="18">awswhatisaws2022</bcf:citekey>
+    <bcf:citekey order="19">awspricing2022</bcf:citekey>
+    <bcf:citekey order="20">awsregionsandazs</bcf:citekey>
+    <bcf:citekey order="21">burakawswindfarm2021</bcf:citekey>
+    <bcf:citekey order="22">rfc6056</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
