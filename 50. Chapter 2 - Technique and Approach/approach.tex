@@ -4,15 +4,56 @@
 
 \chapter{Methodology and setup}
 \label{chap:methodology-and-setup}
-In this chapter, the solution is going to be explained in details. The reason behind various design choices is going to be explained elaborately as well as the technical aspects of the project.
+In this chapter, the solution is going to be explained in details. The reason behind various design choices is going to be explained elaborately as well as the technical aspects of the solution.
 
 \section{Approach}
+In the early stages of the development, the main idea was that the solution had to be:
 
+\begin{itemize}
+    \item well planned. Every step taken had to be thought of, usually drawn on a paper to assess its feasibiliy.<ATTACH AN IMAGE OF INITIAL ARCHITECTURE DESIGNS>
+    \item well built. The project had to be well structured such that it is intuitive to navigate around source codes. A naming convention was followed throughout the source codes.
+    \item easily maintainable. The project was broken down into segments of folders, and the code was built with inheritance.
+    \item built with professional, software engineering industry standard toolset, as described in section \ref{sec:tools-used}.
+    \item agile. The AWS infrastructure mainly had to be built such that it is easy to deploy and destroy without investing a lot of effort.
+\end{itemize}
+
+With the above points in mind, the solution design process started on paper. Figure <REFERENCE AN IMAGE > shows one of the initial designs of the proposed system. After several design iterations, the final design was produced as shown in the high level design on figure <REFENCE THE HLD>. The next step was to bring the design to reality. And that was no easy task.
+
+As the design started being built to reality, it was evident that deploying the whole AWS infrastructure manually from the AWS console, see figure <REFERENCE THE AWS CONSOLE>, was going to be a time consuming, inefficient activity. And this also contracdited the initial idea of building an agile infrastructure that can easily be redeployed in case changes are needed. That is where the thought to build the infrastructure as code using some sort of infrastructure as code (IaC) tool came in. Since the cloud provider of choice was AWS, the best tool for the task was with no doubt the AWS cloud development kit <CITE AWS CDK>.
+
+After the AWS infrastructure was built, the next step was the UAV. The outstanding questions here were:
+
+\begin{itemize}
+    \item How is the UAV going to be built?
+    \item What is going to be the size?
+    \item What is going to be the UAV type? Quadcopter? Fixed wing?
+    \item How is the UAV going to be programmed? What programming language should be used?
+    \item How is the UAV going to communicate with the rest of the system on AWS?
+\end{itemize}
+
+The above questions drove the next development stage. The drone type and size of choice were a small quadcopter. The initial idea was to build an actual quadcopter, therefore the below parts were purchased to build the quadcopter:
+
+\begin{itemize}
+    \item Readytosky S500 quadcopter frame with built-in PCB.
+    \item Pixhawk 2.4.8 flight controller with 4GB of onboard SD card storage.
+    \item Raspberry Pi 3 with 4GB of onboard SD card storage.
+    \item Readytosky M8N GPS module built-in compass with GPS antenna mount.
+    \item 4 pieces of A2212 1000KV brushless motors.
+    \item 4 pieces of 2-6S 30 amps Electronic speed controllers.
+    \item 2 pairs of 1238 carbon fiber propellers
+\end{itemize}
+
+<INSERT AN IMAGE OF THE ABOVE PARTS>
+
+As the development of the quadcopter went on, it became obvious that this approach was not the best way to go, especially for a proof-of-concept (POC) solution mainly due to how costly it was becoming. At somepoint the wire connectors were even insufficient, and it would take too long to order new ones online. The idea to build the actual physical quadcopter was then put on-hold, and it was decided to rather use simulation tools to simulate the actual quadcopter. Section \ref{sec:software-in-the-loop} elaborates more on how the simulation was set up.
+
+<REVEW THIS SECTION>
 
 \section{Solution description}
 
 
 \section{Software in the loop simulator}
+\label{sec:software-in-the-loop}
 
 
 \section{Communication}
@@ -180,3 +221,5 @@ Describe the solution on a higher level. Discuss HLDs.
 \nomenclature[z-IANA]{IANA}{Internet Assigned Number Authority}
 \nomenclature[z-IETF]{IETF}{Internet Engineering Task Force}
 \nomenclature[z-RFC]{RFC}{Request for Comments}
+\nomenclature[z-PCB]{PCB}{Printed Circuit Board}
+\nomenclature[z-SD]{SD (as in SD card)}{Secure Digital}
