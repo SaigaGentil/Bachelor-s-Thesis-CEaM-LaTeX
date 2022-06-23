@@ -3,6 +3,7 @@
 % ------------------------------------------------------------------------
 
 \chapter{Methodology and setup}
+\label{chap:methodology-and-setup}
 In this chapter, the solution is going to be explained in details. The reason behind various design choices is going to be explained elaborately as well as the technical aspects of the project.
 
 \section{Approach}
@@ -11,10 +12,16 @@ In this chapter, the solution is going to be explained in details. The reason be
 \section{Solution description}
 
 
-\section{Network access and security}
-One of the challenges with implementing a networked system, especially on cloud platforms like AWS, is ensuring that traffic flows in the expected way with proper security in place. The proposed solution, being a networked solution involving communications to and from various applications, has a rigorous network design. Figure <REFERENCE TO THE NETWORK DESIGN IMAGE> shows how network within AWS.
+\section{Software in the loop simulator}
 
-AWS has a concept of Virtual Private Cloud also known as VPC, which is simply an isolated private network that can be broken down into various subnets depending on the architecture. The proposed solution has 3 subnets, public, private and isolated-private subnets for each availability zone
+
+\section{Communication}
+<Talk about Mavlink... and how mavlink is used in the project>
+
+\section{AWS Network access and security}
+One of the challenges with implementing a networked system, especially on cloud platforms like AWS, is ensuring that traffic flows in the expected way with proper security in place. The proposed solution, being a networked solution involving communications to and from various applications, has a rigorous network design. Figure <REFERENCE TO THE NETWORK DESIGN IMAGE> shows how network within the proposed AWS infrastructure was designed.
+
+AWS has a concept of Virtual Private Cloud also known as VPC, which is simply an isolated private network that can be broken down into various subnets depending on the architecture. The proposed solution has one VPC broken down into three subnets; public, private and isolated-private subnets for each availability zone.
 
 \subsection{Public subnet}
 \label{public-subnet}
