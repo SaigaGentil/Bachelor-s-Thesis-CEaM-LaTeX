@@ -4,9 +4,9 @@
 
 \chapter{Theory}
 
-In this chapter, key background concepts and methodologies used in the thesis are going to be discussed. The chapter is going to discuss explain what is meant by unmanned aerial system and its components.
+In this chapter, key background concepts and methodologies used in the thesis are going to be discussed. The chapter is going to explain what is meant by unmanned aerial system and its components.
 
-The chapter is also going to discuss on the cloud provider, Amazon Web Services (AWS), used to host various components of developed system, simulation and software development tools used, as well as laws and regulations around unmanned aerial systems.
+The chapter is also going to discuss on the cloud provider, Amazon web services (AWS), used to host various components of developed system, simulation and software development tools used, as well as laws and regulations around unmanned aerial systems.
 
 \section{Unmanned Aerial System}
 \label{sec:unmanned-aerial-system}
@@ -39,7 +39,7 @@ Amazon Web Services, commonly known as AWS, is a cloud platform provided by Amaz
 
 AWS has a concept of regions, which refers to a phyisical location around the world, where multiple datacenters are deployed in a cluster. Each cluster of datacenter is called an availability zone\cite{awsregionsandazs}. AWS set this up like this to guarantee high availability and reliability of deployed resources.
 
-Cloud computing is an emerging technology that has revolutionized how businesses go online. Cloud computing has been and still is of great use in various industries, including the aerospace and energy industries. Burak et al developed a cloud and edge solution running on AWS that aimed at increasing turbine maintanance inspections' efficiency through automation and a serverless AWS architecture while reducing operations cost\cite{burakawswindfarm2021}. A serverless architecture is a type of architecture where servers' configuration and patching is taken care by the provider, thus allowing developers and engineers to focus on the actual resources, applications, databases \textit{et cetera}, to be deployed. The solution proposed by Burak et al was comprised of drones, machine learning and Internet of Things running on cloud and edge.
+Cloud computing is an emerging technology that has revolutionized how businesses go online. Cloud computing has been and still is of great use in various industries, including the aerospace and energy industries. Burak et al developed a cloud and edge solution running on AWS that aimed at increasing turbine maintenance inspections' efficiency through automation and a serverless AWS architecture while reducing operations cost\cite{burakawswindfarm2021}. The solution proposed by Burak et al was comprised of drones, machine learning and internet of things processes running on cloud and edge.
 
 The proposed solution in this thesis also takes advantage of what AWS and cloud computing offers. Several components, like the ground control system, of the proposed solution are running on AWS. See the high-high-level design in figure \ref{fig:uas-hhld}.
 
@@ -73,38 +73,74 @@ In this thesis, Infrastructure as Code is used to its outmost potential. The AWS
 \end{center}
 
 \section{Simulation}
-The initial project plan was to develop a whole UAS from scratch with an actual physical UAV and components, but this was deemed to be time consuming, and expensive to develop. Therefore all the components that make a UAV were simulated using a simultation technique called Software in the loop or SITL. This technique allows developers to develop UAV flight logics using software and no hardware involved, eventhough that is possible as well. Chapter \ref{chap:methodology-and-setup} elaborates more on how SITL was used in this project to simulate an actual UAV with telemetry.
+The initial project plan was to develop a whole UAS from scratch with an actual physical UAV and components, but this was deemed to be time consuming, and expensive to develop. Therefore, all the components that make a UAV were simulated using a simulation technique called Software in the loop or SITL. This technique allows developers to develop UAV flight logics using software and no hardware involved, eventhough that is possible as well. Chapter \ref{chap:methodology-and-setup} elaborates more on how SITL was used in this project to simulate an actual UAV with telemetry.
 
-\section{Graphics and software development}
+\section{Tools used}
+\label{sec:tools-used}
 The solution proposed in this thesis was built using various software development, and design tools. The choice of tools is really key to an organised and well managed project development, therefore it was important to choose the right tools for the right tasks to help get the expected outcome from them.
 
 In the next subsections, various tools during the solution development are going to be listed and discussed.
 
 \subsection{Microsoft Visual studio code}
 \label{subsec:ms-visual-studio-code}
-Visual studio code or VS code is a source code editor provided by Microsoft. It was used in this thesis as a code editor to write various codes and scripts. Microsoft VS code free license used allows users to use it for personal and commercial use.<CITE LICENSE>.
+Visual studio code or VS code is a source code editor provided by Microsoft. It was used in this thesis as a code editor to write various codes and scripts.
+<ADD SCREENSHOT>
 
 \subsection{PyCharm by JetBrains}
 \label{subsec:pycharm}
-The AWS infrastructure was built as code using Python programming language. Due to its robustness and great Python support, Pycharm by JetBrains integrated development devolpment or IDE was the go to choice.
+The AWS infrastructure was built as code using Python programming language. Due to its robustness and great Python support, Pycharm by JetBrains integrated development devolpment (IDE) was the go to choice.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{pycharm_main_view.png}
+    \caption{PyCharm editor.}
+    \label{fig:pycharm}
+    \source{Own creation.}
+\end{figure}
 
 \subsection{PhpStorm by JetBrains}
 \label{subsec:phpstorm}
-PhpStorm is an integrated development environment created by JetBrains specifically for PHP programming language. The web interface from which the proposed Unmanned Aerial System is controlled from is built with PHP's Laravel framework, and PHP storm is perfectly optimised for development of PHP software.
+PhpStorm is an integrated development environment created by JetBrains specifically for php programming language. The web interface from which the UAV is controlled from is built with php's Laravel framework, and PhpStorm is perfectly optimised for development of php web applications.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{phpstorm_main_view.png}
+    \caption{PhpStorm editor.}
+    \label{fig:phpstorm}
+    \source{Own creation.}
+\end{figure}
 
 \subsection{Affinity Designer}
 \label{subsec:affinity-designer}
-Several UI components used across the project like icons and logos, like in figure \ref{fig:hs-group-logos} for example, were designed using Affinity Designer. Affinity Designer is a graphics tool used to design and create logos, icons, concept arts, UI designs \textit{et cetera}.
+Several user interface components used across the project like icons and logos, like in figure \ref{fig:hs-group-logos} for example, were designed using Affinity Designer. Affinity Designer is a graphics tool used to design and create logos, icons, concept arts, UI designs \textit{et cetera}.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{affinity_designer_main_view.png}
+    \caption{Affinity Designer editor.}
+    \label{fig:affinity-designer}
+    \source{Own creation.}
+\end{figure}
 
 \subsection{GitHub}
 \label{subsec:github}
 One of the fundamentals of software development and coding projects generally is to version the code so that changes can be tracked overtime. Making sure that a project is versioned and maintained centrally in a repository is very important, especially where teams are working together on a similar project. Git, one of the softwares used for code versioning, was used in this project to track changes across various components of the overall project. In fact this thesis document itself is versioned using Git <ADD LINK TO THIS THESIS ON GITHUB>, alongside other components of the proposed solution. Github then comes into play to act as the single point of truth where multiple Git repositories can be pushed and managed from.
 <ADD IMAGE SHOWING A TYPICAL BASIC GIT - GITHUB FLOW>
 
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{github_main_view.png}
+    \caption{Github repository for the AWS infrastructure code.}
+    \label{fig:github}
+    \source{Own creation.}
+\end{figure}
+
 \subsection{Microsoft Visio}
 \label{subsec:ms-visio}
-Microsoft Visio is an application part of the Microsoft office family that is used for digramming and graphics visualization. It is used to build architecture diagrams and many more. In this project, Microsoft Visio was used to draw and create architecture design diagrams of the proposed solution.
-<ADD REFERENCE TO AN HLD>
+Microsoft Visio is an application part of the Microsoft office family that is used for digramming and graphics visualization. It is used to build architecture diagrams and many more. In this project, Microsoft Visio was used to design and create architecture design diagrams of the proposed solution.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{ms_visio_main_view.png}
+    \caption{Microsoft Visio.}
+    \label{fig:ms-visio}
+    \source{Own creation.}
+\end{figure}
 
 % \section{Law and regulation}
 % The aerospace industry is one of the highly regulated industries. And this is so for a reason, mainly safety and airspace security.
