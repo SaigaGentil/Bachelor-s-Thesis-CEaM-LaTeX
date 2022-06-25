@@ -1,0 +1,6 @@
+[submodule ".\\config\\code\\47c895ea0838ad6366c2b0e53bb8c331"]
+	path = .\\config\\code\\47c895ea0838ad6366c2b0e53bb8c331
+	url = https://gist.github.com/47c895ea0838ad6366c2b0e53bb8c331.git
+[submodule ".\\config\\code\\7c11d95d3b55be021475679db7f9f9dd\\"]
+	path = .\\config\\code\\7c11d95d3b55be021475679db7f9f9dd\\
+	url = https://gist.github.com/7c11d95d3b55be021475679db7f9f9dd.git
