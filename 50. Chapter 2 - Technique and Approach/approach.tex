@@ -10,14 +10,21 @@ In this chapter, the solution is going to be explained in details. The reason be
 In the early stages of the development, the main idea was that the solution had to be:
 
 \begin{itemize}
-    \item well planned. Every step taken had to be thought of, usually drawn on a paper to assess its feasibiliy.<ATTACH AN IMAGE OF INITIAL ARCHITECTURE DESIGNS>
+    \item well planned. Every step taken had to be thought of, usually drawn on a paper to assess its feasibiliy. Figure \ref{fig:initial-draft-designs} shows the initial draft designs.
     \item well built. The project had to be well structured such that it is intuitive to navigate around source codes. A naming convention was followed throughout the source codes.
     \item easily maintainable. The project was broken down into segments of folders, and the code was built with inheritance.
     \item built with professional, software engineering industry standard toolset, as described in section \ref{sec:tools-used}.
     \item agile. The AWS infrastructure mainly had to be built such that it is easy to deploy and destroy without investing a lot of effort.
 \end{itemize}
 
-With the above points in mind, the solution design process started on paper. Figure <REFERENCE AN IMAGE > shows one of the initial designs of the proposed system. After several design iterations, the final design was produced as shown in the high level design on figure <REFENCE THE HLD>. The next step was to bring the design to reality. And that was no easy task.
+With the above points in mind, the solution design process started on paper. Figure \ref{fig:initial-draft-designs} shows some of the initial designs of the proposed system. After several design iterations, the final design was produced as shown in the high level design on figure <REFENCE THE HLD>. The next step was to bring the design to reality. And that was no easy task.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{initial_designs_2.jpg}
+    \caption{Initial draft architecture designs.}
+    \label{fig:initial-draft-designs}
+    \source{Own work.}
+\end{figure}
 
 As the design started being built to reality, it was evident that deploying the whole AWS infrastructure manually from the AWS console, see figure <REFERENCE THE AWS CONSOLE>, was going to be a time consuming, inefficient activity. And this also contracdited the initial idea of building an agile infrastructure that can easily be redeployed in case changes are needed. That is where the thought to build the infrastructure as code using some sort of infrastructure as code (IaC) tool came in. Since the cloud provider of choice was AWS, the best tool for the task was with no doubt the AWS cloud development kit <CITE AWS CDK>.
 
@@ -36,11 +43,11 @@ The above questions drove the next development stage. The drone type and size of
 \begin{itemize}
     \item Readytosky S500 quadcopter frame with built-in PCB.
     \item Pixhawk 2.4.8 flight controller with 4GB of onboard SD card storage.
-    \item Raspberry Pi 3 with 4GB of onboard SD card storage.
+    \item Raspberry Pi 4 model B with 4GB of onboard SD card storage.
     \item Readytosky M8N GPS module built-in compass with GPS antenna mount.
     \item 4 pieces of A2212 1000KV brushless motors.
     \item 4 pieces of 2-6S 30 amps Electronic speed controllers.
-    \item 2 pairs of 1238 carbon fiber propellers
+    \item 2 pairs of 1238 carbon fiber propellers.
 \end{itemize}
 
 <INSERT AN IMAGE OF THE ABOVE PARTS>
@@ -50,14 +57,107 @@ As the development of the quadcopter went on, it became obvious that this approa
 <REVEW THIS SECTION>
 
 \section{Solution description}
+<ATTACH THE HLD AND DESCRIBE EVERY CONNECTION>
 
+\subsection{AWS cloud development kit setup}
+As mentioned in the previous chapters, the designed AWS infrastructure was deployed as code using AWS cloud development kit (AWS CDK). AWS CDK allows developers to build AWS infrastructures in an agile manner by using normal programming languages. This allows developers to take advantage of programming idioms like loops, variables, conditionals and inheritance to build robust AWS infrastructures. This also means that software engineering practices like source control, testing and code reviews can be used since the infrastructure is basically standard code. Currently AWS CDK supports Python, Javascript, C\#, Go, and Typescript programming languages.
 
-\section{Software in the loop simulator}
-\label{sec:software-in-the-loop}
+A typical AWS CDK project is made up of 3 components, namely:
 
+\begin{itemize}
+    \item an app. This is the overall set of everything. An AWS CDK project is basically called an AWS CDK app. This comprises of constructs.
+    \item constructs. These represent components that make an AWS infrastructure. They can be an AWS simple storage service (S3), an elastic cloud compute (EC2), an application load balancer (ALB) \textit{et cetera}. AWS has a comprehensive site that shows all the available AWS and community constructs\cite{awsconstructhub}.
+    \item stacks. These are the unit of deployment in AWS CDK. A stack represents all AWS resources defined within the same scope.
+\end{itemize}
 
-\section{Communication}
-<Talk about Mavlink... and how mavlink is used in the project>
+Figure \ref{fig:aws-cdk-app-structure} shows how an AWS CDK app is structured.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{aws_cdk_workflow.png}
+    \caption{AWS CDK app structure.}
+    \label{fig:aws-cdk-app-structure}
+    \source{AWS CDK documentation\cite{awscdkdocumentation}.}
+\end{figure}
+
+\subsection*{Build}
+
+To start building the AWS infrastructure with AWS CDK, the AWS command line interface (CLI) needs to first be set up. To install the AWS CLI on Windows, run the following command \mintinline[breaklines, breakanywhere]{bash}{msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi}. This allows to interact with AWS via the CLI.
+
+Once the AWS CLI is installed, type the command \mintinline[breaklines, breakanywhere]{bash}{aws configure} to configure credentials to AWS. The console will ask for the AWS access key ID, the AWS secret access key, the default region name and the default output format as shown in figure \ref{fig:aws-configure-output}.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{aws_configure_output.png}
+    \caption{AWS configure CLI output.}
+    \label{fig:aws-configure-output}
+    \source{Own work.}
+\end{figure}
+
+The next step is to then install AWS CDK from node package manager (NPM) with \mintinline[breaklines, breakanywhere]{bash}{npm install -g aws-cdk}. This will download and install the latest aws-cdk version on the local workstation. The "-g" flag makes the package available globally on the workstation.
+
+Next, get the account number from the AWS CLI using the AWS security token service (STS) and the region name from AWS CLI configuration by executing the commands below.
+
+\mintinline[breaklines, breakanywhere]{bash}{aws sts get-caller-identity}, to get the account number.
+
+\mintinline[breaklines, breakanywhere]{bash}{aws configure get region}, to get the region name.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{cdk_pre_bootstrap.png}
+    \caption{AWS STS and configure commands output.}
+    \label{fig:aws-account-numbre-region}
+    \source{Own work.}
+\end{figure}
+
+With the account number and the region name, AWS CDK can be bootstrapped now. Bootstrapping in AWS refers to the process of creating assets (local files, directories, docker image,...) that need to be deployed with the stack. These assets are deployed to an AWS S3 bucket for AWS CloudFormation to use them during stack deployment. Execute command \mintinline[breaklines, breakanywhere]{bash}{cdk bootstrap aws://560995733478/eu-central-1} to bootstrap AWS CDK.
+
+Once all the above steps are completed, a CDK app can now be created. First create a directory for the app and move into the directory, \mintinline[breaklines, breakanywhere]{bash}{mkdir hs_infrastructure} then \mintinline[breaklines, breakanywhere]{bash}{cd hs_infrastructure},then run the command \mintinline[breaklines, breakanywhere]{bash}{cdk init app --language python} to initialize a Python AWS CDK app. After that, activate the Python virtual environment with \mintinline[breaklines, breakanywhere]{bash}{source .venv/Scripts/activate} and install the core AWS CDK plugins with \mintinline[breaklines, breakanywhere]{bash}{python -m pip install -r requirements.txt}.
+
+This will generate a couple of starting files in the app directory. Also if Git is installed on the workstation the app will be initialized as a Git repository that can be versioned and later be pushed to a Git remote repository like Github.
+
+\subsection*{Deploy}
+
+After completing the previous steps, we have an app with a default stack but with no resources defined in it. The next step is to write code that defines stacks that make the AWS infrastructure. In the proposed solution, multiple stacks were created, figure \ref{fig:aws-stacks} shows the stacks that make the proposed solution.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{cdk_ls.png}
+    \caption{Proposed solution AWS stacks.}
+    \label{fig:aws-stacks}
+    \source{Own work.}
+\end{figure}
+
+Each of the stacks defines several services needed to build the whole overall infrastructure.
+\begin{itemize}
+    \item hsg-aws-a001-prod-IAMStack: Creates IAM user needed by the AWS elastic container service (ECS) and elastic container registry (ECR).
+    \item hsg-aws-a001-prod-NetworkStack: Sets up the overall AWS infrastructure networking. Subnets, firewall rules, \textit{et cetera}. This is the longest stack in terms of lines of code, because it is made up of approximately 480 lines of code.
+    \item hsg-aws-a001-prod-Route53BaseStack: This creates a hosted zone for the domain helloskygroup.com as well as a wildcard SSL certificate for the domain.
+    \item hsg-aws-a001-prod-ECSECRStack: This spins up docker containers hosting the web application in the AWS ECS Fargate service. Fargate was used since it is a serverless service. A serverless service is a service that offloads the responsibility from developers to managed the actual physical servers hosting the deployed resources.
+    \item hsg-aws-a001-prod-RDSAuroraStack: This deploys a MySQL database in the AWS relational database service (RDS).
+    \item hsg-aws-a001-prod-Route53RecordsStack: This adds DNS records in the hosted zone created in the 'hsg-aws-a001-prod-Route53BaseStack' stack.
+\end{itemize}
+
+Once each stack is developed, the next step is to deploy it to AWS. Snippet \ref{code:hs_infrastructure_app_snippet_1} shows the \mintinline[breaklines, breakanywhere]{python}{main.py} code that basically imports all the created tasks in the AWS app and executes them. From there, the command \mintinline[breaklines, breakanywhere]{bash}{cdk deploy -all} needs to be executed from the root directory to deploy the resources and stacks defined in the app. Figure \ref{fig:aws-cdk-app-lifecycle} shows the full lifecycle of an AWS CDK app.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=0.9\linewidth]{aws_cdk_app_lifecycle.png}
+    \caption{AWS CDK app lifecycle.}
+    \label{fig:aws-cdk-app-lifecycle}
+    \source{AWS documentation\cite{awscdkdocumentationapps}.}
+\end{figure}
+
+\begin{center}
+    \captionsetup{type=listing}
+    \inputminted[
+        frame=single,
+        framesep=2mm,
+        baselinestretch=1.2,
+        fontsize=\footnotesize,
+        breaklines,
+        breakanywhere,
+        linenos
+    ]{python}{config/code/47c895ea0838ad6366c2b0e53bb8c331/hs_infrastructure_app_snippet_1.py}
+    \captionof{listing}{AWS CDK app.py snippet.}
+    \label{code:hs_infrastructure_app_snippet_1}
+\end{center}
+
 
 \section{AWS Network access and security}
 One of the challenges with implementing a networked system, especially on cloud platforms like AWS, is ensuring that traffic flows in the expected way with proper security in place. The proposed solution, being a networked solution involving communications to and from various applications, has a rigorous network design. Figure <REFERENCE TO THE NETWORK DESIGN IMAGE> shows how network within the proposed AWS infrastructure was designed.
@@ -206,6 +306,13 @@ The isolated-private subnet hosts the MySQL database running in AWS Relational D
 
 Describe the solution on a higher level. Discuss HLDs.
 
+\section{Software in the loop UAV simulator}
+\label{sec:software-in-the-loop}
+
+
+\section{UAV Communication}
+<Talk about Mavlink... and how mavlink is used in the project>
+
 \nomenclature[z-AZ]{AZ}{Availability Zone}
 \nomenclature[z-NAT]{NAT}{Network Address Translation}
 \nomenclature[z-VPC]{VPC}{Virtual Private Cloud}
@@ -223,4 +330,8 @@ Describe the solution on a higher level. Discuss HLDs.
 \nomenclature[z-RFC]{RFC}{Request for Comments}
 \nomenclature[z-PCB]{PCB}{Printed Circuit Board}
 \nomenclature[z-SD]{SD (as in SD card)}{Secure Digital}
-\nomenclature[z-GPS]{GPS}{Globa Positioning System}
+\nomenclature[z-GPS]{GPS}{Global Positioning System}
+\nomenclature[z-S3]{S3 (as in AWS S3)}{Simple Storage Service}
+\nomenclature[z-CLI]{CLI}{Command Line Interface}
+\nomenclature[z-IAM]{IAM}{Identity Access Management}
+\nomenclature[z-ECR]{ECR}{Elastic Container Registry}
