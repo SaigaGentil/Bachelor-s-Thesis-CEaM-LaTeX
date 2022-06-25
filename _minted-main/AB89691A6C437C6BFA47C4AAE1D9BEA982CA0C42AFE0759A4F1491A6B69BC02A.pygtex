@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+aws sts get\PYGZhy{}caller\PYGZhy{}identity
+\end{Verbatim}

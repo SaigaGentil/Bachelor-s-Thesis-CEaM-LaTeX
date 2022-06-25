@@ -1,0 +1,102 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/usr/bin/env python3}
+
+\PYG{k+kn}{import} \PYG{n+nn}{aws\PYGZus{}cdk} \PYG{k}{as} \PYG{n+nn}{cdk}
+
+\PYG{k+kn}{from} \PYG{n+nn}{network.infrastructure} \PYG{k+kn}{import} \PYG{n}{NetworkStack}
+\PYG{k+kn}{from} \PYG{n+nn}{ecs\PYGZus{}ecr.infrastructure} \PYG{k+kn}{import} \PYG{n}{ECSECRStack}
+\PYG{k+kn}{from} \PYG{n+nn}{iam.infrastructure} \PYG{k+kn}{import} \PYG{n}{IAMStack}
+\PYG{k+kn}{from} \PYG{n+nn}{route53\PYGZus{}base.infrastructure} \PYG{k+kn}{import} \PYG{n}{Route53BaseStack}
+\PYG{k+kn}{from} \PYG{n+nn}{route53\PYGZus{}records.infrastructure} \PYG{k+kn}{import} \PYG{n}{Route53RecordsStack}
+\PYG{k+kn}{from} \PYG{n+nn}{rds\PYGZus{}aurora.infrastructure} \PYG{k+kn}{import} \PYG{n}{RDSAuroraStack}
+
+\PYG{c+c1}{\PYGZsh{} TODO: \PYGZsh{}49 Move these props to a separate props.yaml file}
+\PYG{c+c1}{\PYGZsh{} Properties used across classes}
+\PYG{c+c1}{\PYGZsh{} \PYGZlt{}Ommited in the snippet due to how long it is\PYGZgt{}}
+\PYG{n}{props} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{o}{...}\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{\PYGZsh{} Set account and region to use for EU frankfurt.}
+\PYG{n}{env\PYGZus{}EU\PYGZus{}Frankfurt} \PYG{o}{=} \PYG{n}{cdk}\PYG{o}{.}\PYG{n}{Environment}\PYG{p}{(}
+    \PYG{n}{account}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}560995733478\PYGZsq{}}\PYG{p}{,} \PYG{n}{region}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}eu\PYGZhy{}central\PYGZhy{}1\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{env} \PYG{o}{=} \PYG{n}{env\PYGZus{}EU\PYGZus{}Frankfurt}
+
+\PYG{n}{app} \PYG{o}{=} \PYG{n}{cdk}\PYG{o}{.}\PYG{n}{App}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Define and run the IAM stack.}
+\PYG{n}{iam\PYGZus{}stack} \PYG{o}{=} \PYG{n}{IAMStack}\PYG{p}{(}\PYG{n}{app}\PYG{p}{,}
+                     \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}IAMStack\PYGZdq{}}\PYG{p}{,}
+                     \PYG{n}{props}\PYG{p}{,}
+                     \PYG{n}{description}\PYG{o}{=}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}This stack creates all the users, roles, groups, policies and permissions for other \PYGZdq{}}
+                                 \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ to use.\PYGZdq{}}\PYG{p}{,}
+                     \PYG{n}{env}\PYG{o}{=}\PYG{n}{env}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Define and run the route 53 base stack. This stack defines the hosted zone and ssl certificate for helloskygroup.com}
+\PYG{n}{route53\PYGZus{}base\PYGZus{}stack} \PYG{o}{=} \PYG{n}{Route53BaseStack}\PYG{p}{(}\PYG{n}{app}\PYG{p}{,}
+                                      \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}\PYGZdq{}}
+                                      \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}Route53BaseStack\PYGZdq{}}\PYG{p}{,}
+                                      \PYG{n}{props}\PYG{p}{,}
+                                      \PYG{n}{description}\PYG{o}{=}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}This stack deploys the }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}\PYGZdq{}}
+                                                  \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ base DNS infrastructure\PYGZdq{}}
+                                                  \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}. This stack creates the hosted zone and the SSL/TLS \PYGZdq{}}
+                                                  \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}wildcard certificate for \PYGZsq{}helloskygroup.com\PYGZsq{}.\PYGZdq{}}\PYG{p}{,}
+                                      \PYG{n}{env}\PYG{o}{=}\PYG{n}{env}
+                                      \PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Define and run the network stack.}
+\PYG{n}{network\PYGZus{}stack} \PYG{o}{=} \PYG{n}{NetworkStack}\PYG{p}{(}\PYG{n}{app}\PYG{p}{,}
+                             \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}\PYGZdq{}}
+                             \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}NetworkStack\PYGZdq{}}\PYG{p}{,}
+                             \PYG{n}{props}\PYG{p}{,}
+                             \PYG{n}{wildcard\PYGZus{}cert}\PYG{o}{=}\PYG{n}{route53\PYGZus{}base\PYGZus{}stack}\PYG{o}{.}\PYG{n}{wildcard\PYGZus{}cert}\PYG{p}{,}
+                             \PYG{n}{description}\PYG{o}{=}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}This stack deploys the }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}\PYGZdq{}}
+                                         \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ network and all its components.\PYGZdq{}}\PYG{p}{,}
+                             \PYG{n}{env}\PYG{o}{=}\PYG{n}{env}
+                             \PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Define and run the RDS Aurora stack to create the MySQL database cluster with RDS Aurora.}
+\PYG{n}{rds\PYGZus{}aurora\PYGZus{}stack} \PYG{o}{=} \PYG{n}{RDSAuroraStack}\PYG{p}{(}\PYG{n}{app}\PYG{p}{,}
+                                  \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}\PYGZdq{}}
+                                  \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}RDSAuroraStack\PYGZdq{}}\PYG{p}{,}
+                                  \PYG{n}{props}\PYG{p}{,}
+                                  \PYG{n}{vpc}\PYG{o}{=}\PYG{n}{network\PYGZus{}stack}\PYG{o}{.}\PYG{n}{vpc}\PYG{p}{,}
+                                  \PYG{n}{description}\PYG{o}{=}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}This stack deploys the }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}\PYGZdq{}}
+                                              \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ RDS Aurora MySQL database\PYGZdq{}}
+                                              \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}cluster. Multiple databases will be created within the cluster.\PYGZdq{}}\PYG{p}{,}
+                                  \PYG{n}{env}\PYG{o}{=}\PYG{n}{env}
+                                  \PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Define and run the Route 53 stack to create the DNS infrastructure.}
+\PYG{n}{route53\PYGZus{}records\PYGZus{}stack} \PYG{o}{=} \PYG{n}{Route53RecordsStack}\PYG{p}{(}\PYG{n}{app}\PYG{p}{,}
+                                            \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}\PYGZdq{}}
+                                            \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}Route53RecordsStack\PYGZdq{}}\PYG{p}{,}
+                                            \PYG{n}{props}\PYG{p}{,}
+                                            \PYG{n}{hosted\PYGZus{}zone}\PYG{o}{=}\PYG{n}{route53\PYGZus{}base\PYGZus{}stack}\PYG{o}{.}\PYG{n}{hosted\PYGZus{}zone}\PYG{p}{,}
+                                            \PYG{n}{internet\PYGZus{}facing\PYGZus{}alb}\PYG{o}{=}\PYG{n}{network\PYGZus{}stack}\PYG{o}{.}\PYG{n}{internet\PYGZus{}facing\PYGZus{}alb}\PYG{p}{,}
+                                            \PYG{n}{description}\PYG{o}{=}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}This stack deploys the }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}\PYGZdq{}}
+                                                        \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ DNS Records\PYGZdq{}}
+                                                        \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{} infrastructure. This stack creates all the DNS records.\PYGZdq{}}\PYG{p}{,}
+                                            \PYG{n}{env}\PYG{o}{=}\PYG{n}{env}
+                                            \PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Define and run the ECS ECR stack.}
+\PYG{c+c1}{\PYGZsh{} This stack depends on the network stack.}
+\PYG{n}{ecr\PYGZus{}ecs\PYGZus{}stack} \PYG{o}{=} \PYG{n}{ECSECRStack}\PYG{p}{(}\PYG{n}{app}\PYG{p}{,}
+                            \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}ECSECRStack\PYGZdq{}}\PYG{p}{,}
+                            \PYG{n}{props}\PYG{p}{,}
+                            \PYG{n}{vpc}\PYG{o}{=}\PYG{n}{network\PYGZus{}stack}\PYG{o}{.}\PYG{n}{vpc}\PYG{p}{,}
+                            \PYG{n}{internet\PYGZus{}facing\PYGZus{}alb\PYGZus{}secg}\PYG{o}{=}\PYG{n}{network\PYGZus{}stack}\PYG{o}{.}\PYG{n}{internet\PYGZus{}facing\PYGZus{}alb\PYGZus{}secg}\PYG{p}{,}
+                            \PYG{n}{grafana\PYGZus{}tg}\PYG{o}{=}\PYG{n}{network\PYGZus{}stack}\PYG{o}{.}\PYG{n}{grafana\PYGZus{}tg}\PYG{p}{,}
+                            \PYG{n}{description}\PYG{o}{=}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}This stack deploys the }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}company\PYGZus{}abbreviation\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}namespace\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZhy{}\PYGZdq{}}
+                                        \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{props}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}environment\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ ECS and ECR infrastructure.\PYGZdq{}}\PYG{p}{,}
+                            \PYG{n}{env}\PYG{o}{=}\PYG{n}{env}
+                            \PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} TODO: \PYGZsh{}68 Add dependencies between stacks.}
+
+\PYG{c+c1}{\PYGZsh{} print(iam\PYGZus{}stack.iam\PYGZus{}props[\PYGZsq{}ecs\PYGZus{}ecr\PYGZus{}user\PYGZsq{}])}
+\PYG{c+c1}{\PYGZsh{} Synthesize a cloud assembly from \PYGZsq{}app\PYGZsq{}. The cloud assemblies include everything needed to deploy \PYGZsq{}app\PYGZsq{} to the cloud.}
+\PYG{c+c1}{\PYGZsh{} It includes AWS CloudFormation template for each stack and a copy of any file assets or Docker images that are}
+\PYG{c+c1}{\PYGZsh{} referenced in the \PYGZsq{}app\PYGZsq{}.}
+\PYG{n}{app}\PYG{o}{.}\PYG{n}{synth}\PYG{p}{()}
+\end{Verbatim}
