@@ -72,6 +72,7 @@
 % Code listing
 %--------------------------------------
 \RequirePackage{listings}   % Code listings
+\usepackage{realboxes}      % For colorbox.
 \lstset{
   columns=fullflexible,
   frame=single,
