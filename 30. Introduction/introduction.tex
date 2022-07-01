@@ -11,6 +11,7 @@
 
 
 %/-------------------------------- CHAPTER START --------------------------------/%
+
 \chapter{Introduction}
 \label{chap:thesis-introduction}
 
@@ -22,15 +23,15 @@ Rwanda has also seen great use of UAVs during the COVID-19 pandemic where UAVs w
 
 As UAVs gain the market, the need to have robust unmanned aerial systems (UASs) becomes inevitable. Currently there are not a lot of UASs that are are deployed on the cloud. Therefore, in this thesis, a robust, scalable, containerized, highly available unmanned aerial system deployed on the cloud service platform, Amazon web services (AWS), solution is proposed, where operators can control UAVs from virtually anywhere in the world through web applications deployed on AWS. The proposed solution comprises of a UAV running PX4 operating system together with a raspberry pi companion computer with a data-link vi MAVLink protocol to a ground control system (GCS), telemetry dashboards and a command-and-control center application running in a highly available and fault tolerant AWS cloud infrastructure. The focus of this thesis is to therefore assess the possibilities of implementing such a solution in an efficient, resilient, reliable, and highly available manner and discuss on the pros and cons of the solution.
 
-The proposed solution, as seen in figure \ref{fig:uas-hhld}, was developed following the best industry standards in software development and architecture as is going to be described in detail in the next chapters. This thesis is also going to discuss the developments that have already been made in this area as well as areas that need further research and development.
+The proposed solution, as seen in figure \ref{fig:solution-hld-a4}, was developed following the best industry standards in software development and architecture as is going to be described in detail in the next chapters. This thesis is also going to discuss the developments that have already been made in this area as well as areas that need further research and development.
 
 This thesis is divided in 5 chapters; chapter \ref{chap:thesis-introduction} introduces the topic of the thesis, chapter \ref{chap:theory} expands on the concepts, tools and implementation techniques used during development of the proposed solution, chapter \ref{chap:methodology-and-setup} details on how the proposed solution is setup and tested, chapter \ref{chap:discussion} discusses on the implementation of the solution and challenges faced and finally chapter \ref{chap:conclusion} concludes the thesis and discusses on future work on the proposed solution.
 
 \begin{figure}[!htbp]
     \centering \includegraphics[width=1\linewidth]{solution_hld_a4.png}
     \caption{Proposed solution high-level design.}
-    \label{fig:uas-hhld}
-    \source{Own work.}
+    \label{fig:solution-hld-a4}
+    \source{Own work. Designed with Affinity Designer. Refer to \ref{subsec:affinity-designer}.}
 \end{figure}
 
 
@@ -140,7 +141,6 @@ HelloSky group is a name used to label the work done and future developments tha
 \end{figure}
 
 %/--------------------------------- SECTION END ---------------------------------/%
-
 
 %/--------------------------------- CHAPTER END ---------------------------------/%
 
