@@ -1,32 +1,47 @@
-% ------------------------------------------------------------------------
-% 50. Technique and Approach
-% ------------------------------------------------------------------------
+%%%---------------------------------------------------------------%%%
+%%% Wyzsza Szkola Gospodarki Bachelor's Thesis                    %%%
+%%% Prepared by Bruno Axel Kamere                                 %%%
+%%% Inspired by Artur M. Brodzki & Piotr Woźniak's WUT template.  %%%
+%%% Computer Engineering and Mechatronics Department              %%%
+%%% Wyzsza Szkola Gospodarki w Bydgoszczy, 2022                   %%%
+%%%---------------------------------------------------------------%%%
+% -------------------------------------------------------------------
+% 30. Methodology and setup                                         %
+% -------------------------------------------------------------------
+
+
+%/-------------------------------- CHAPTER START --------------------------------/%
 
 \chapter{Methodology and setup}
 \label{chap:methodology-and-setup}
+
 In this chapter, the solution is going to be explained in details. The reason behind various design choices is going to be explained elaborately as well as the technical aspects of the solution.
 
+%/-------------------------------- SECTION START --------------------------------/%
+
 \section{Approach}
+\label{sec:approach}
+
 In the early stages of the development, the main idea was that the solution had to be:
 
 \begin{itemize}
-    \item well planned. Every step taken had to be thought of, usually drawn on a paper to assess its feasibiliy. Figure \ref{fig:initial-draft-designs} shows the initial draft designs.
-    \item well built. The project had to be well structured such that it is intuitive to navigate around source codes. A naming convention was followed throughout the source codes.
-    \item easily maintainable. The project was broken down into segments of folders, and the code was built with inheritance.
-    \item built with professional, software engineering industry standard toolset, as described in section \ref{sec:tools-used}.
+    \item well planned. Every step taken had to be thought of, usually drawn on a paper to assess its feasibility. Figure \ref{fig:initial-draft-designs} shows the initial draft designs during the brainstorming phase of the solution development.
+    \item well built. The project had to be well structured such that it is intuitive to navigate around source codes. A specific naming convention was followed throughout the source codes to maintain a consistent code base.
+    \item easily maintainable. The project was broken down into segments of folders with inheritance.
+    \item built with professional, software engineering industry toolset, as described in section \ref{sec:tools-used}.
     \item agile. The AWS infrastructure mainly had to be built such that it is easy to deploy and destroy without investing a lot of effort.
 \end{itemize}
 
-With the above points in mind, the solution design process started on paper. Figure \ref{fig:initial-draft-designs} shows some of the initial designs of the proposed system. After several design iterations, the final design was produced as shown in the high level design on figure <REFENCE THE HLD>. The next step was to bring the design to reality. And that was no easy task.
+With the above points in mind, the solution design process started on paper. Figure \ref{fig:initial-draft-designs} shows some of the initial designs of the proposed system. After several design iterations, final designs were produced like the AWS architecture high-level design in figure \ref{fig:aws-architecture-hld}. The next step was then to bring the designs to reality. And that was no easy task.
 
 \begin{figure}[H]
-    \centering \includegraphics[width=0.9\linewidth]{initial_designs_2.jpg}
+    \centering \includegraphics[width=1\linewidth]{initial_designs_2.jpg}
     \caption{Initial draft architecture designs.}
     \label{fig:initial-draft-designs}
     \source{Own work.}
 \end{figure}
 
-As the design started being built to reality, it was evident that deploying the whole AWS infrastructure manually from the AWS console, see figure <REFERENCE THE AWS CONSOLE>, was going to be a time consuming, inefficient activity. And this also contracdited the initial idea of building an agile infrastructure that can easily be redeployed in case changes are needed. That is where the thought to build the infrastructure as code using some sort of infrastructure as code (IaC) tool came in. Since the cloud provider of choice was AWS, the best tool for the task was with no doubt the AWS cloud development kit <CITE AWS CDK>.
+As the design started being built to reality, it was evident that deploying the whole AWS infrastructure manually from the AWS console, see figure \ref{fig:aws-console-home}, was going to be a time consuming and inefficient activity. And this also contradicted the initial idea of building an agile infrastructure that can be easily redeployed in case changes are needed. That is where the thought to build the infrastructure as code using some sort of infrastructure as code (IaC) tool came in. Since the cloud provider of choice was AWS, the best tool for the task was with no doubt the AWS' very own cloud development kit\cite{awscdkdocumentation}.
 
 After the AWS infrastructure was built, the next step was the UAV. The outstanding questions here were:
 
@@ -38,7 +53,7 @@ After the AWS infrastructure was built, the next step was the UAV. The outstandi
     \item How is the UAV going to communicate with the rest of the system on AWS?
 \end{itemize}
 
-The above questions drove the next development stage. The drone type and size of choice were a small quadcopter. The initial idea was to build an actual quadcopter, therefore the below parts were purchased to build the quadcopter:
+The above questions drove the next development stage. The UAV type of choice was a small quadcopter. The initial idea was to build an actual quadcopter, therefore the below parts were purchased to build the quadcopter from scratch:
 
 \begin{itemize}
     \item Readytosky S500 quadcopter frame with built-in PCB.
@@ -50,14 +65,56 @@ The above questions drove the next development stage. The drone type and size of
     \item 2 pairs of 1238 carbon fiber propellers.
 \end{itemize}
 
-<INSERT AN IMAGE OF THE ABOVE PARTS>
+<TODO: INSERT AN IMAGE OF THE ABOVE PARTS>
 
-As the development of the quadcopter went on, it became obvious that this approach was not the best way to go, especially for a proof-of-concept (POC) solution mainly due to how costly it was becoming. At somepoint the wire connectors were even insufficient, and it would take too long to order new ones online. The idea to build the actual physical quadcopter was then put on-hold, and it was decided to rather use simulation tools to simulate the actual quadcopter. Section \ref{sec:software-in-the-loop} elaborates more on how the simulation was set up.
+As the development of the quadcopter went on, it became obvious that this approach was not the best way to go, especially for a proof-of-concept (POC) solution mainly due to how costly it was becoming. At some point the wire connectors were even insufficient, and it came to notice that a power module was also needed, and it would take too long to order the parts online. The idea to build the actual physical quadcopter was then put on-hold, and it was decided to rather use simulation tools to simulate the actual quadcopter. Section \ref{sec:software-in-the-loop} elaborates more on how the simulation was implemented and set up.
 
-<REVEW THIS SECTION>
+%/--------------------------------- SECTION END ---------------------------------/%
+
+
+%/-------------------------------- SECTION START --------------------------------/%
 
 \section{Solution description}
-<ATTACH THE HLD AND DESCRIBE EVERY CONNECTION>
+\label{solution-description}
+
+The proposed solution is a bit vast, here below the designs are going to be described and explained.
+
+\subsection{AWS architecture high-level design}
+\label{subsec:aws-architecture-hld}
+
+One of the solution development best practice is to design first before attempting implementation. This helps one to brainstorm before hand how the solution to be built will look like. This approach was followed in developing the proposed solution. Figure \ref{fig:aws-architecture-hld} shows the high-level design that pictures a holistic view of how the AWS infrastructure looks like. It pictures how various AWS services talk to each other and how. The design is labeled with numbers, which are used to explain what each link is for in the following paragraph. Some of the components shown in design were not fully implemented but are part of the design as future work, that includes the continuous integration and continuous delivery (CI/CD) pipeline section on the left of the design, though it was tested separately and proven to work.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=1\linewidth]{aws_architecture_hld.png}
+    \caption{Proposed AWS architecture high-level design.}
+    \label{fig:aws-architecture-hld}
+    \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
+\end{figure}
+
+Below are the explanations of the numbered items in the figure \ref{fig:aws-architecture-hld}:
+
+Number 1 through 5 is a CI/CD pipeline that builds a docker image of the web app, the ground control station deployed on cloud.
+
+\begin{enumerate}
+    \item Developers commit code changes to a master branch of a Git repository.
+    \item The activity triggers an AWS CloudWatch alarm, which then initiates the AWS CodePipeline.
+    \item AWS CodeBuild service compiles the source code, runs tests and returns packaged application images ready to be deployed.
+    \item After a package is created, the pipeline now waits for manual approval by an approver. This is so that only approved code are deployed to a production environment.
+    \item Approved packaged images are pushed to the AWS Elastic Container Registry (ECR).
+    \item Packages are pulled either from Docker Hub registry or from AWS ECR to build AWS containerised services.
+    \item AWS Elastic Container Service (ECS) pulls images from AWS ECR via an AWS Virtual Private Cloud endpoint (VPC endpoint).
+    \item Users can access front-end applications deployed on AWS through the internet
+    \item The UAV sends telemetry to AWS services like the data lake and ground control station (GCS) and receives mission commands from the GCS via an LTE or WiFi data link.
+    \item All traffic that go to an AWS VPC have to go through an internet gateway. Without it, AWS VPC resources cannot talk to the internet.
+    \item All incoming traffic is load balanced with an AWS application load balancer (AWS ALB) which will then forward the traffic to desired services depending on the requested resource.
+    \item Traffic is routed to the desired target group configured on the AWS ALB.
+    \item The GCS and data analytics services like the telemetry dashboards and the data lake can communicate to each other.
+    \item Grafana that runs the telemetry dashboards has a MySQL database that the Grafana service can access in the private isolated subnet. Same goes for the GCS.
+    \item Resources deployed in private have no direct communication with the internet, therefore for them to pull updates, a network address translation gateway (NAT gateway) is needed to establish the connection.
+    \item The NAT gateway the goes through the internet gateway then to the internet.
+\end{enumerate}
+
+
 
 \subsection{AWS cloud development kit setup}
 As mentioned in the previous chapters, the designed AWS infrastructure was deployed as code using AWS cloud development kit (AWS CDK). AWS CDK allows developers to build AWS infrastructures in an agile manner by using normal programming languages. This allows developers to take advantage of programming idioms like loops, variables, conditionals and inheritance to build robust AWS infrastructures. This also means that software engineering practices like source control, testing and code reviews can be used since the infrastructure is basically standard code. Currently AWS CDK supports Python, Javascript, C\#, Go, and Typescript programming languages.
