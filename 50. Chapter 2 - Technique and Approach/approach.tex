@@ -79,6 +79,8 @@ As the development of the quadcopter went on, it became obvious that this approa
 
 The proposed solution is a bit vast, here below the designs are going to be described and explained.
 
+%/------------------------------ SUB-SECTION START ------------------------------/%
+
 \subsection{AWS architecture high-level design}
 \label{subsec:aws-architecture-hld}
 
@@ -114,10 +116,15 @@ Number 1 through 5 is a CI/CD pipeline that builds a docker image of the web app
     \item The NAT gateway the goes through the internet gateway then to the internet.
 \end{enumerate}
 
+%/------------------------------- SUB-SECTION END -------------------------------/%
 
+
+%/------------------------------ SUB-SECTION START ------------------------------/%
 
 \subsection{AWS cloud development kit setup}
-As mentioned in the previous chapters, the designed AWS infrastructure was deployed as code using AWS cloud development kit (AWS CDK). AWS CDK allows developers to build AWS infrastructures in an agile manner by using normal programming languages. This allows developers to take advantage of programming idioms like loops, variables, conditionals and inheritance to build robust AWS infrastructures. This also means that software engineering practices like source control, testing and code reviews can be used since the infrastructure is basically standard code. Currently AWS CDK supports Python, Javascript, C\#, Go, and Typescript programming languages.
+\label{subsec:aws-cdk-setup}
+
+The AWS infrastructure described in section \ref{subsec:aws-architecture-hld} is deployed as code using AWS cloud development kit (AWS CDK). AWS CDK allows developers to build AWS infrastructures in an agile manner by using normal programming languages. This allows developers to take advantage of programming idioms like loops, variables, conditionals and inheritance to build robust AWS infrastructures. This also means that software engineering practices like source control, testing and code reviews can be used since the infrastructure is basically standard code. Currently AWS CDK supports Python, Javascript, C\#, Go, and Typescript programming languages.
 
 A typical AWS CDK project is made up of 3 components, namely:
 
@@ -130,20 +137,26 @@ A typical AWS CDK project is made up of 3 components, namely:
 Figure \ref{fig:aws-cdk-app-structure} shows how an AWS CDK app is structured.
 
 \begin{figure}[H]
-    \centering \includegraphics[width=0.9\linewidth]{aws_cdk_workflow.png}
+    \centering \includegraphics[width=1\linewidth]{aws_cdk_workflow.png}
     \caption{AWS CDK app structure.}
     \label{fig:aws-cdk-app-structure}
     \source{AWS CDK documentation\cite{awscdkdocumentation}.}
 \end{figure}
 
+%/------------------------------- SUB-SECTION END -------------------------------/%
+
+
+%/------------------------------ SUB-SECTION START ------------------------------/%
+
 \subsection*{Build}
+\label{subsec:build}
 
 To start building the AWS infrastructure with AWS CDK, the AWS command line interface (CLI) needs to first be set up. To install the AWS CLI on Windows, run the following command \mintinline[breaklines, breakanywhere]{bash}{msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi}. This allows to interact with AWS via the CLI.
 
 Once the AWS CLI is installed, type the command \mintinline[breaklines, breakanywhere]{bash}{aws configure} to configure credentials to AWS. The console will ask for the AWS access key ID, the AWS secret access key, the default region name and the default output format as shown in figure \ref{fig:aws-configure-output}.
 
 \begin{figure}[H]
-    \centering \includegraphics[width=0.9\linewidth]{aws_configure_output.png}
+    \centering \includegraphics[width=1\linewidth]{aws_configure_output.png}
     \caption{AWS configure CLI output.}
     \label{fig:aws-configure-output}
     \source{Own work.}
@@ -158,7 +171,7 @@ Next, get the account number from the AWS CLI using the AWS security token servi
 \mintinline[breaklines, breakanywhere]{bash}{aws configure get region}, to get the region name.
 
 \begin{figure}[H]
-    \centering \includegraphics[width=0.9\linewidth]{cdk_pre_bootstrap.png}
+    \centering \includegraphics[width=1\linewidth]{cdk_pre_bootstrap.png}
     \caption{AWS STS and configure commands output.}
     \label{fig:aws-account-numbre-region}
     \source{Own work.}
@@ -170,12 +183,18 @@ Once all the above steps are completed, a CDK app can now be created. First crea
 
 This will generate a couple of starting files in the app directory. Also if Git is installed on the workstation the app will be initialized as a Git repository that can be versioned and later be pushed to a Git remote repository like Github.
 
+%/------------------------------- SUB-SECTION END -------------------------------/%
+
+
+%/------------------------------ SUB-SECTION START ------------------------------/%
+
 \subsection*{Deploy}
+\label{subsec:deploy}
 
 After completing the previous steps, we have an app with a default stack but with no resources defined in it. The next step is to write code that defines stacks that make the AWS infrastructure. In the proposed solution, multiple stacks were created, figure \ref{fig:aws-stacks} shows the stacks that make the proposed solution.
 
 \begin{figure}[H]
-    \centering \includegraphics[width=0.9\linewidth]{cdk_ls.png}
+    \centering \includegraphics[width=1\linewidth]{cdk_ls.png}
     \caption{Proposed solution AWS stacks.}
     \label{fig:aws-stacks}
     \source{Own work.}
@@ -194,7 +213,7 @@ Each of the stacks defines several services needed to build the whole overall in
 Once each stack is developed, the next step is to deploy it to AWS. Snippet \ref{code:hs_infrastructure_app_snippet_1} shows the \mintinline[breaklines, breakanywhere]{python}{main.py} code that basically imports all the created tasks in the AWS app and executes them. From there, the command \mintinline[breaklines, breakanywhere]{bash}{cdk deploy -all} needs to be executed from the root directory to deploy the resources and stacks defined in the app. Figure \ref{fig:aws-cdk-app-lifecycle} shows the full lifecycle of an AWS CDK app.
 
 \begin{figure}[H]
-    \centering \includegraphics[width=0.9\linewidth]{aws_cdk_app_lifecycle.png}
+    \centering \includegraphics[width=1\linewidth]{aws_cdk_app_lifecycle.png}
     \caption{AWS CDK app lifecycle.}
     \label{fig:aws-cdk-app-lifecycle}
     \source{AWS documentation\cite{awscdkdocumentationapps}.}
@@ -215,14 +234,59 @@ Once each stack is developed, the next step is to deploy it to AWS. Snippet \ref
     \label{code:hs_infrastructure_app_snippet_1}
 \end{center}
 
+%/--------------------------------- SECTION END ---------------------------------/%
 
-\section{AWS Network access and security}
-One of the challenges with implementing a networked system, especially on cloud platforms like AWS, is ensuring that traffic flows in the expected way with proper security in place. The proposed solution, being a networked solution involving communications to and from various applications, has a rigorous network design. Figure <REFERENCE TO THE NETWORK DESIGN IMAGE> shows how network within the proposed AWS infrastructure was designed.
 
-AWS has a concept of Virtual Private Cloud also known as VPC, which is simply an isolated private network that can be broken down into various subnets depending on the architecture. The proposed solution has one VPC broken down into three subnets; public, private and isolated-private subnets for each availability zone.
+%/-------------------------------- SECTION START --------------------------------/%
+
+\section{AWS network and security configuration}
+\label{sec:aws-network}
+
+One of the challenges with implementing a networked system, especially on cloud platforms like AWS, is ensuring that traffic flows in the expected way with proper security in place. The proposed solution, being a networked solution involving communications to and from various applications, has a rigorous network design. Figure \ref{fig:aws-network-hld} shows how network within the proposed AWS infrastructure was designed.
+
+AWS' Virtual Private Cloud also known as VPC concept, which is simply an isolated private network on the cloud. The VPC in the proposed solution is configured with network range 10.0.0.0/16 which is broken down in 3 subnets for each of the two availability zones that make the eu-central-1 (Frankfurt) region in which the AWS resources are deployed in.
+
+
+%/------------------------------ SUB-SECTION START ------------------------------/%
+
+\subsubsection*{eu-central-1a availability zone}
+\label{eu-central-1a-az}
+
+\begin{itemize}
+    \item Public subnet. Configured with network range 10.0.0.0/24.
+    \item Private subnet. Configured with network range 10.0.2.0/24.
+    \item Private-isolated subnet. Configured with network range 10.0.4.0/28.
+\end{itemize}
+
+%/------------------------------- SUB-SECTION END -------------------------------/%
+
+
+%/------------------------------ SUB-SECTION START ------------------------------/%
+
+\subsubsection*{eu-central-1b availability zone}
+\label{eu-central-1b-az}
+
+\begin{itemize}
+    \item Public subnet. Configured with network range 10.0.1.0/24.
+    \item Private subnet. Configured with network range 10.0.3.0/24.
+    \item Private-isolated subnet. Configured with network range 10.0.4.16/28.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering \includegraphics[width=1\linewidth]{aws_network_hld.png}
+    \caption{AWS network high-level design.}
+    \label{fig:aws-network-hld}
+    \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
+\end{figure}
+
+%/------------------------------- SUB-SECTION END -------------------------------/%
+
+
+%/------------------------------ SUB-SECTION START ------------------------------/%
 
 \subsection{Public subnet}
 \label{public-subnet}
+
 The public subnet in this proposed solution does not contain any resources, except a Network Address Translation or NAT gateway that is used by resources in the private subnet to access the internet. Table \ref{table:public-subnet-inbound} and \ref{table:public-subnet-outbound} show the inbound and outbound traffic rules respectively configured on the public subnet network access control list or NACL.
 
 \begin{table}[H]
@@ -276,8 +340,14 @@ The public subnet in this proposed solution does not contain any resources, exce
 
 The rules explanation are similar to those for inbound traffic in table \ref{table:public-subnet-inbound}, except that instead of inbound it is outbound.
 
+%/------------------------------- SUB-SECTION END -------------------------------/%
+
+
+%/------------------------------ SUB-SECTION START ------------------------------/%
+
 \subsection{Private subnet}
 \label{private-subnet}
+
 Most of the infrastructure components are deployed in the private subnet where only specific traffic from the public and isolated-private subnets are allowed in. In this subnet is where the UAV command and control center user interface is deployed, in containers using the AWS Fargate serverless service. The rules for this subnet have to be carefully defined so that;
 
 \begin{itemize}
@@ -354,6 +424,11 @@ Table \ref{table:private-subnet-inbound} and \ref{table:private-subnet-outbound}
 
 <TALK ABOUT SECURITY GROUPS>
 
+%/------------------------------- SUB-SECTION END -------------------------------/%
+
+
+%/------------------------------ SUB-SECTION START ------------------------------/%
+
 \subsection{Isolated-private subnet}
 \label{isolated-private-subnet}
 
@@ -363,12 +438,28 @@ The isolated-private subnet hosts the MySQL database running in AWS Relational D
 
 Describe the solution on a higher level. Discuss HLDs.
 
+%/--------------------------------- SECTION END ---------------------------------/%
+
+
+%/-------------------------------- SECTION START --------------------------------/%
+
 \section{Software in the loop UAV simulator}
 \label{sec:software-in-the-loop}
 
+%/--------------------------------- SECTION END ---------------------------------/%
+
+
+%/-------------------------------- SECTION START --------------------------------/%
 
 \section{UAV Communication}
 <Talk about Mavlink... and how mavlink is used in the project>
+
+%/--------------------------------- SECTION END ---------------------------------/%
+
+%/--------------------------------- CHAPTER END ---------------------------------/%
+
+
+%/----------------------------- NOMENCLATURE START ------------------------------/%
 
 \nomenclature[z-AZ]{AZ}{Availability Zone}
 \nomenclature[z-NAT]{NAT}{Network Address Translation}
@@ -392,3 +483,5 @@ Describe the solution on a higher level. Discuss HLDs.
 \nomenclature[z-CLI]{CLI}{Command Line Interface}
 \nomenclature[z-IAM]{IAM}{Identity Access Management}
 \nomenclature[z-ECR]{ECR}{Elastic Container Registry}
+
+%/------------------------------ NOMENCLATURE END -------------------------------/%
