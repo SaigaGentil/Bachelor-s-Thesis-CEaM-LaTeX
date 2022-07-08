@@ -17,7 +17,7 @@
 
 In this chapter, key background concepts and methodologies used in the thesis are going to be discussed. The chapter is going to explain what is meant by unmanned aerial system and its components.
 
-The chapter is also going to discuss on the cloud provider, Amazon web services (AWS), used to host various components of developed system, simulation and software development tools used, as well as laws and regulations around unmanned aerial systems.
+The chapter is also going to discuss on the cloud provider, Amazon web services (AWS), used to host various components of developed system, simulation and software development tools used for the proposed unmanned aerial systems solution.
 
 
 %/-------------------------------- SECTION START --------------------------------/%
@@ -25,7 +25,7 @@ The chapter is also going to discuss on the cloud provider, Amazon web services 
 \section{Unmanned Aerial System}
 \label{sec:unmanned-aerial-system}
 
-An unmanned aerial system commonly referred to as UAS is a set comprised of an unmanned aerial vehicle (UAV) and components that support its operations. UAVs that make the UAS do not carry human pilots but are piloted remotely or autonomously. A UAS is usually comprised of four main components namely,
+An unmanned aerial system commonly referred to as UAS is a set comprised of an unmanned aerial vehicle (UAV) and components that support its operations. UAVs that make a UAS do not carry human pilots but are piloted remotely or autonomously. A UAS is usually comprised of four main components namely,
 
 \begin{itemize}
     \item An unmanned aerial vehicle also known as a UAV.
@@ -98,7 +98,7 @@ UAVs come in different classifications depending on various factors like weight 
         \hline
     \end{tabular}
     \caption{UAV classification by altitude and range.}
-    \source{Vinay et Al \cite{Chamola2021}}
+    \source{Vinay et. al \cite{Chamola2021}}
     \label{table:uav-classification-by-alt-range}
 \end{table}
 
@@ -189,7 +189,7 @@ AWS has a concept of regions, which refers to a physical location around the wor
     \source{Own work.}
 \end{figure}
 
-Cloud computing is an emerging technology that has revolutionized how businesses go online. Cloud computing has been and still is of great use in various industries, including the aerospace and energy industries. One of the many usage of cloud computing like AWS in the aerospace and energy industries is where Burak et al developed a cloud and edge solution running on AWS that aimed at increasing turbine maintenance inspections' efficiency through automation and a serverless AWS architecture while reducing operations cost\cite{burakawswindfarm2021}. The solution proposed by Burak et al was comprised of drones, machine learning and internet of things processes running on cloud and edge.
+Cloud computing is an emerging technology that has revolutionized how businesses go online. Cloud computing has been and still is of great use in various industries, including the aerospace and energy industries. One of the many usage of cloud computing like AWS in the aerospace and energy industries is where Burak et. al developed a cloud and edge solution running on AWS that aimed at increasing turbine maintenance inspections' efficiency through automation and a serverless AWS architecture while reducing operations cost\cite{burakawswindfarm2021}. The solution proposed by Burak et al was comprised of drones, machine learning and internet of things processes running on cloud and edge.
 
 The proposed solution in this thesis also takes advantage of what AWS and cloud computing offers. Several components, like data analytics services, of the proposed solution are running on AWS. Figure \ref{fig:aws-architecture-hld} shows the AWS high-level design of the proposed solution. The details of the design are described in chapter \ref{chap:methodology-and-setup}.
 
@@ -218,7 +218,7 @@ Infrastructure as Code also known as IaC, a technique very often used in the Dev
     \item It helps with cost savings. Since the whole infrastructure is basically deployed automatically through code, engineers can then shift their focus to work on other important tasks.
 \end{itemize}
 
-In this thesis, Infrastructure as Code is used to its outmost potential. The AWS infrastructure is deployed as code using the AWS proprietary software development framework called AWS Cloud Development Kit or AWS CDK. AWS CDK is an open source kit provided by AWS that allows engineers to define IT infrastructures on AWS using familiar programming languages. In the source code \ref{code:route_53_records} is an example snippet from the AWS CDK app developed for the proposed solution in this thesis. The snippet represents a part that adds DNS records to the AWS Route 53 service using standard Python code. Once the AWS CDK is deployed, the script will automatically create the resources defined in the AWS Route 53 DNS service.
+In this thesis, Infrastructure as Code is used to its outmost potential. The AWS infrastructure is deployed as code using the AWS software development framework called AWS Cloud Development Kit or AWS CDK. AWS CDK is an open source kit provided by AWS that allows engineers to define IT infrastructures on AWS using familiar programming languages. In the source code \ref{code:route_53_records} is an example snippet from the AWS CDK app developed for the proposed solution in this thesis. The snippet represents a part that adds DNS records to the AWS Route 53 service using standard Python code. Once the AWS CDK app is deployed, the script automatically creates the resources defined in the AWS Route 53 DNS service.
 
 \begin{center}
     \captionsetup{type=listing}
@@ -245,7 +245,7 @@ In this thesis, Infrastructure as Code is used to its outmost potential. The AWS
 \section{Simulation}
 \label{sec:simulation}
 
-The proposed solution is designed based on actual physical hardware components, but during development phases, it usually is better to simulate parts of the solutions that can be simulated. This not only saves time, since everything is done through software, but it also saves money in case something initial project plan was to develop a whole UAS from scratch with an actual physical UAV and components, but this was deemed to be time consuming, and expensive to develop. During development of the proposed solution a simulation technique called Software-In-The-Loop or SITL\cite{Giese2021} was used to simulate the UAV. Figure \ref{fig:sitl-hld} shows the design of the proposed SITL architecture. Chapter \ref{chap:methodology-and-setup} elaborates more on this simulation technique. This technique basically allows developers to develop UAV flight logics using software and no hardware involved, eventhough it is possible as well to involve hardware in what is referred to as Hardware-In-The-Loop or HITL\cite{px4hitluserguide}. Chapter \ref{chap:methodology-and-setup} elaborates more on how SITL was used in this project to simulate an actual UAV with telemetry.
+The proposed solution is designed based on actual physical hardware components, but during development phases, it was observed that it was better to simulate parts of the solutions that can be simulated. This not only was deemed to save time, since everything was done through software, but it also helped save money that would be invested in buying new hardware in case replacements of parts were needed. This being said, the initial project plan was to develop a whole UAS from scratch with an actual physical UAV and components, and the next chapters will discuss on what progress was made on this front. During development of the proposed solution a simulation technique called Software-In-The-Loop or SITL\cite{Giese2021} was used to simulate the UAV. Figure \ref{fig:sitl-hld} shows the design of the proposed SITL architecture. Chapter \ref{chap:methodology-and-setup} elaborates more on this simulation technique. This technique basically allows developers to develop UAV flight logics using software and no hardware involved, eventhough it is possible as well to involve hardware in what is referred to as Hardware-In-The-Loop or HITL\cite{px4hitluserguide}. Chapter \ref{chap:methodology-and-setup} elaborates more on how SITL was used in this project to simulate an actual UAV with telemetry.
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{sitl_hld.png}
