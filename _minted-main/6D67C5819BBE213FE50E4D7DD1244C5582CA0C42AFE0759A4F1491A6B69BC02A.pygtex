@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+docker run \PYGZhy{}\PYGZhy{}rm \PYGZhy{}it \PYGZhy{}\PYGZhy{}env \PYG{n+nv}{PX4\PYGZus{}HOME\PYGZus{}LAT}\PYG{o}{=}\PYG{l+m}{53}.12758 \PYGZhy{}\PYGZhy{}env \PYG{n+nv}{PX4\PYGZus{}HOME\PYGZus{}LON}\PYG{o}{=}\PYG{l+m}{17}.99353 jonasvautherin/px4\PYGZhy{}gazebo\PYGZhy{}headless:1.12.3
+\end{Verbatim}
