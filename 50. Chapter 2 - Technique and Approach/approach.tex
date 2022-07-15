@@ -25,14 +25,14 @@ In this chapter, the solution is going to be explained in details. The reason be
 In the early stages of the development, the main idea was that the solution had to be:
 
 \begin{itemize}
-    \item well planned. Every step taken had to be thought of, usually drawn on a paper to assess its feasibility. Figure \ref{fig:initial-draft-designs} shows the initial draft designs during the brainstorming phase of the solution development.
-    \item well built. The project had to be well structured such that it is intuitive to navigate around source codes. A specific naming convention was followed throughout the source codes to maintain a consistent code base.
-    \item easily maintainable. The project was broken down into segments of folders with inheritance.
-    \item built with professional, software engineering industry toolset, as described in section \ref{sec:tools-used}.
-    \item agile. The AWS infrastructure mainly had to be built such that it is easy to deploy and destroy without investing a lot of effort.
+    \item Well planned. Every step taken had to be thought of, usually drawn on a paper to assess its feasibility. Figure \ref{fig:initial-draft-designs} shows the initial draft designs during the brainstorming phase of the solution development.
+    \item Well-built. The project had to be well-structured such that it is intuitive to navigate around source codes. A specific naming convention was followed throughout the source codes to maintain a consistent code base.
+    \item Easily maintainable. The project was broken down into segments of folders with inheritance.
+    \item Built with professional, software engineering industry toolset, as described in section \ref{sec:tools-used}.
+    \item Agile. The AWS infrastructure mainly had to be built such that it is easy to deploy and destroy without investing a lot of effort.
 \end{itemize}
 
-With the above points in mind, the solution design process started on paper. Figure \ref{fig:initial-draft-designs} shows some of the initial designs of the proposed system. After several design iterations, final designs were produced like the AWS architecture high-level design in figure \ref{fig:aws-architecture-hld}. The next step was then to bring the designs to reality. And that was no easy task.
+With the above points in mind, the solution design process started on paper. Figure \ref{fig:initial-draft-designs} shows some initial designs of the proposed system. After several design iterations, final designs were produced like the AWS architecture high-level design in figure \ref{fig:aws-architecture-hld}. The next step was then to bring the designs to reality. And that was no easy task.
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{initial_designs_2.jpg}
@@ -41,7 +41,7 @@ With the above points in mind, the solution design process started on paper. Fig
     \source{Own work.}
 \end{figure}
 
-As the design started being built to reality, it was evident that deploying the whole AWS infrastructure manually from the AWS console, see figure \ref{fig:aws-console-home}, was going to be a time consuming and inefficient activity. And this also contradicted the initial idea of building an agile infrastructure that can be easily redeployed in case changes are needed. That is where the thought to build the infrastructure as code using some sort of infrastructure as code (IaC) tool came in. Since the cloud provider of choice was AWS, the best tool for the task was with no doubt the AWS' very own cloud development kit\cite{awscdkdocumentation}.
+As the design started being built to reality, it was evident that deploying the whole AWS infrastructure manually from the AWS console, see figure \ref{fig:aws-console-home}, was going to be a time-consuming and inefficient activity. And this also contradicted the initial idea of building an agile infrastructure that can be easily redeployed in case changes are needed. That is where the thought to build the infrastructure as code using some sort of infrastructure as code (IaC) tool came in. Since the cloud provider of choice was AWS, the best tool for the task was with no doubt the AWS' very own cloud development kit\cite{awscdkdocumentation}.
 
 After the AWS infrastructure was built, the next step was the UAV. The outstanding questions here were:
 
@@ -56,13 +56,13 @@ After the AWS infrastructure was built, the next step was the UAV. The outstandi
 The above questions drove the next development stage. The UAV type of choice was a small quadcopter. The initial idea was to build an actual quadcopter, therefore the below parts were purchased to build the quadcopter from scratch, figure \ref{fig:quadcopter-hardware-components} shows the components:
 
 \begin{itemize}
-    \item Readytosky S500 quadcopter frame with built-in PCB.
-    \item Pixhawk 2.4.8 flight controller with 4GB of onboard SD card storage.
-    \item Raspberry Pi 4 model B with 4GB of onboard SD card storage.
-    \item Readytosky M8N GPS module built-in compass with GPS antenna mount.
+    \item ReadytoSky S500 quadcopter frame with built-in PCB.
+    \item Pixhawk 2.4.8 flight controller with 4 GB of onboard SD card storage.
+    \item Raspberry Pi 4 model B with 4 GB of onboard SD card storage.
+    \item ReadytoSky M8N GPS module built-in compass with GPS antenna mount.
     \item 4 pieces of A2212 1000KV brushless motors.
     \item 4 pieces of 2-6S 30 amps Electronic speed controllers.
-    \item 2 pairs of 1238 carbon fiber propellers.
+    \item 2 pairs of 1238 carbon fibre propellers.
 \end{itemize}
 
 \begin{figure}[H]
@@ -89,7 +89,7 @@ The proposed solution is a bit vast, here below the designs are going to be desc
 \subsection{AWS architecture high-level design}
 \label{subsec:aws-architecture-hld}
 
-One of the solution development best practice is to design first before attempting implementation. This helps one to brainstorm before hand how the solution to be built will look like. This approach was followed in developing the proposed solution. Figure \ref{fig:aws-architecture-hld} shows the high-level design that pictures a holistic view of how the AWS infrastructure looks like. It pictures how various AWS services talk to each other and how. The design is labeled with numbers, which are used to explain what each link is for in the following paragraph. Some of the components shown in design were not fully implemented but are part of the design as future work, that includes the continuous integration and continuous delivery (CI/CD) pipeline section on the left of the design, though it was tested separately and proven to work.
+One of the solution development best practice is to design first before attempting implementation. This helps one to brainstorm beforehand how the solution to be built will look like. This approach was followed in developing the proposed solution. Figure \ref{fig:aws-architecture-hld} shows the high-level design that pictures a holistic view of how the AWS infrastructure looks like. It pictures how various AWS services talk to each other and how. The design is labelled with numbers, which are used to explain what each link is for in the following paragraph. Some components shown in design were not fully implemented but are part of the design as future work, that includes the continuous integration and continuous delivery (CI/CD) pipeline section on the left of the design, though it was tested separately and proven to work.
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{aws_architecture_hld.png}
@@ -108,15 +108,15 @@ Number 1 through 5 is a CI/CD pipeline that builds a docker image of the web app
     \item AWS CodeBuild service compiles the source code, runs tests and returns packaged application images ready to be deployed.
     \item After a package is created, the pipeline now waits for manual approval by an approver. This is so that only approved code are deployed to a production environment.
     \item Approved packaged images are pushed to the AWS Elastic Container Registry (ECR).
-    \item Packages are pulled either from Docker Hub registry or from AWS ECR to build AWS containerised services.
+    \item Packages are pulled either from Docker Hub registry or from AWS ECR to build AWS containerized services.
     \item AWS Elastic Container Service (ECS) pulls images from AWS ECR via an AWS Virtual Private Cloud endpoint (VPC endpoint).
     \item Users can access front-end applications deployed on AWS through the internet
-    \item The UAV sends telemetry to AWS services like the data lake and ground control station (GCS) and receives mission commands from the GCS via an LTE or WiFi data link.
+    \item The UAV sends telemetry to AWS services like the data lake and ground control station (GCS) and receives mission commands from the GCS via an LTE or Wi-Fi data link.
     \item All traffic that go to an AWS VPC have to go through an internet gateway. Without it, AWS VPC resources cannot talk to the internet.
     \item All incoming traffic is load balanced with an AWS application load balancer (AWS ALB) which will then forward the traffic to desired services depending on the requested resource.
     \item Traffic is routed to the desired target group configured on the AWS ALB.
     \item The GCS and data analytics services like the telemetry dashboards and the data lake can communicate to each other.
-    \item Grafana that runs the telemetry dashboards has a MySQL database that the Grafana service can access in the private isolated subnet. Same goes for the GCS.
+    \item Grafana that runs the telemetry dashboards has a MySQL database that the Grafana service can access in the private isolated subnet. The same goes for the GCS.
     \item Resources deployed in private have no direct communication with the internet, therefore for them to pull updates, a network address translation gateway (NAT gateway) is needed to establish the connection.
     \item The NAT gateway the goes through the internet gateway then to the internet.
 \end{enumerate}
@@ -129,14 +129,14 @@ Number 1 through 5 is a CI/CD pipeline that builds a docker image of the web app
 \subsection{AWS cloud development kit setup}
 \label{subsec:aws-cdk-setup}
 
-The AWS infrastructure described in section \ref{subsec:aws-architecture-hld} is deployed as code using AWS cloud development kit (AWS CDK). AWS CDK allows developers to build AWS infrastructures in an agile manner by using normal programming languages. This allows developers to take advantage of programming idioms like loops, variables, conditionals and inheritance to build robust AWS infrastructures. This also means that software engineering practices like source control, testing and code reviews can be used since the infrastructure is basically standard code. Currently AWS CDK supports Python, Javascript, C\#, Go, and Typescript programming languages.
+The AWS infrastructure described in section \ref{subsec:aws-architecture-hld} is deployed as code using AWS cloud development kit (AWS CDK). AWS CDK allows developers to build AWS infrastructures in an agile manner by using normal programming languages. This allows developers to take advantage of programming idioms like loops, variables, conditionals and inheritance to build robust AWS infrastructures. This also means that software engineering practices like source control, testing and code reviews can be used since the infrastructure is basically standard code. Currently, AWS CDK supports Python, JavaScript, C\#, Go, and Typescript programming languages.
 
 A typical AWS CDK project is made up of 3 components, namely:
 
 \begin{itemize}
-    \item an app. This is the overall set of everything. An AWS CDK project is basically called an AWS CDK app. This comprises of constructs.
-    \item constructs. These represent components that make an AWS infrastructure. They can be an AWS simple storage service (S3), an elastic cloud compute (EC2), an application load balancer (ALB) \textit{et cetera}. AWS has a comprehensive site that shows all the available AWS and community constructs\cite{awsconstructhub}.
-    \item stacks. These are the unit of deployment in AWS CDK. A stack represents all AWS resources defined within the same scope.
+    \item An app. This is the overall set of everything. An AWS CDK project is basically called an AWS CDK app. This consists of constructs.
+    \item Constructs. These represent components that make an AWS infrastructure. They can be an AWS simple storage service (S3), an elastic cloud compute (EC2), an application load balancer (ALB) \textit{et cetera}. AWS has a comprehensive site that shows all the available AWS and community constructs\cite{awsconstructhub}.
+    \item Stacks. These are the unit of deployment in AWS CDK. A stack represents all AWS resources defined within the same scope.
 \end{itemize}
 
 Figure \ref{fig:aws-cdk-app-structure} shows how an AWS CDK app is structured.
@@ -167,7 +167,7 @@ Once the AWS CLI is installed, type the command \mintinline[breaklines, breakany
     \source{Own work.}
 \end{figure}
 
-The next step is to then install AWS CDK from node package manager (NPM) with \mintinline[breaklines, breakanywhere]{bash}{npm install -g aws-cdk}. This will download and install the latest aws-cdk version on the local workstation. The "-g" flag makes the package available globally on the workstation.
+The next step is to then install AWS CDK from node package manager (NPM) with \mintinline[breaklines, breakanywhere]{bash}{npm install -g aws-cdk}. This will download and install the latest aws-cdk package on the local workstation. The '-g' flag makes the package available globally on the workstation.
 
 Next, get the account number from the AWS CLI using the AWS security token service (STS) and the region name from AWS CLI configuration by executing the commands below.
 
@@ -182,11 +182,11 @@ Next, get the account number from the AWS CLI using the AWS security token servi
     \source{Own work.}
 \end{figure}
 
-With the account number and the region name, AWS CDK can be bootstrapped now. Bootstrapping in AWS refers to the process of creating assets (local files, directories, docker image,...) that need to be deployed with the stack. These assets are deployed to an AWS S3 bucket for AWS CloudFormation to use them during stack deployment. Execute command \mintinline[breaklines, breakanywhere]{bash}{cdk bootstrap aws://560995733478/eu-central-1} to bootstrap AWS CDK.
+With the account number and the region name, AWS CDK can be bootstrapped now. Bootstrapping in AWS refers to the process of creating assets (local files, directories, docker image, \textit{et cetera}) that need to be deployed with the stack. These assets are deployed to an AWS S3 bucket for AWS CloudFormation to use them during stack deployment. Execute command \mintinline[breaklines, breakanywhere]{bash}{cdk bootstrap aws://560995733478/eu-central-1} to bootstrap AWS CDK.
 
-Once all the above steps are completed, a CDK app can now be created. First create a directory for the app and move into the directory, \mintinline[breaklines, breakanywhere]{bash}{mkdir hs_infrastructure} then \mintinline[breaklines, breakanywhere]{bash}{cd hs_infrastructure},then run the command \mintinline[breaklines, breakanywhere]{bash}{cdk init app --language python} to initialize a Python AWS CDK app. After that, activate the Python virtual environment with \mintinline[breaklines, breakanywhere]{bash}{source .venv/Scripts/activate} and install the core AWS CDK plugins with \mintinline[breaklines, breakanywhere]{bash}{python -m pip install -r requirements.txt}.
+Once all the above steps are completed, a CDK app can now be created. First create a directory for the app and move into the directory, \mintinline[breaklines, breakanywhere]{bash}{mkdir hs_infrastructure} then \mintinline[breaklines, breakanywhere]{bash}{cd hs_infrastructure}, then run the command \mintinline[breaklines, breakanywhere]{bash}{cdk init app --language python} to initialize a Python AWS CDK app. After that, activate the Python virtual environment with \mintinline[breaklines, breakanywhere]{bash}{source .venv/Scripts/activate} and install the core AWS CDK plugin with \mintinline[breaklines, breakanywhere]{bash}{python -m pip install -r requirements.txt}.
 
-This will generate a couple of starting files in the app directory. Also if Git is installed on the workstation the app will be initialized as a Git repository that can be versioned and later be pushed to a Git remote repository like Github.
+This will generate a couple of starting files in the app directory. Also, if Git is installed on the workstation the app will be initialized as a Git repository that can be versioned and later be pushed to a Git remote repository like GitHub.
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
 
@@ -254,7 +254,7 @@ AWS' Virtual Private Cloud also known as VPC concept, which is simply an isolate
 
 %/------------------------------ SUB-SECTION START ------------------------------/%
 
-\subsubsection*{eu-central-1a availability zone}
+\subsubsection*{Eu-central-1a availability zone}
 \label{eu-central-1a-az}
 
 \begin{itemize}
@@ -268,7 +268,7 @@ AWS' Virtual Private Cloud also known as VPC concept, which is simply an isolate
 
 %/------------------------------ SUB-SECTION START ------------------------------/%
 
-\subsubsection*{eu-central-1b availability zone}
+\subsubsection*{Eu-central-1b availability zone}
 \label{eu-central-1b-az}
 
 \begin{itemize}
@@ -343,7 +343,7 @@ The public subnet in this proposed solution does not contain any resources, exce
     \label{table:public-subnet-outbound}
 \end{table}
 
-The rules explanation are similar to those for inbound traffic in table \ref{table:public-subnet-inbound}, except that instead of inbound it is outbound.
+The rules' explanation are similar to those for inbound traffic in table \ref{table:public-subnet-inbound}, except that instead of inbound it is outbound.
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
 
@@ -353,11 +353,11 @@ The rules explanation are similar to those for inbound traffic in table \ref{tab
 \subsection{Private subnet}
 \label{private-subnet}
 
-Most of the infrastructure components are deployed in the private subnet where only specific traffic from the public and isolated-private subnets are allowed in. In this subnet is where the UAV command and control center user interface is deployed, in containers using the AWS Fargate serverless service. The rules for this subnet have to be carefully defined so that;
+Most of the infrastructure components are deployed in the private subnet where only specific traffic from the public and isolated-private subnets are allowed in. In this subnet is where the UAV command and control centre user interface is deployed, in containers using the AWS Fargate serverless service. The rules for this subnet have to be carefully defined so that;
 
 \begin{itemize}
     \item Fargate services can pull docker images from docker hub public repositories on the internet.
-    \item The UAV, and several command and control application services can talk to each other.
+    \item The UAV and several command and control application services can talk to each other.
 \end{itemize}
 
 Table \ref{table:private-subnet-inbound} and \ref{table:private-subnet-outbound} show the inbound and outbound traffic rules respectively configured on the private subnet network access control list or NACL.
@@ -427,8 +427,6 @@ Table \ref{table:private-subnet-inbound} and \ref{table:private-subnet-outbound}
     \item \textbf{Rule *:} Blocks every other non previously evaluated IPv4 traffic.
 \end{itemize}
 
-<TODO:TALK ABOUT SECURITY GROUPS>
-
 %/------------------------------- SUB-SECTION END -------------------------------/%
 
 
@@ -437,9 +435,9 @@ Table \ref{table:private-subnet-inbound} and \ref{table:private-subnet-outbound}
 \subsection{Isolated-private subnet}
 \label{isolated-private-subnet}
 
-The isolated-private subnet hosts the MySQL database running in AWS Relational Database Service. This subnet only talks to the private subnet, and has no direct connection to the internet. This improves the infrastructure security through not exposing the database directly to the internet.
+The isolated-private subnet hosts the MySQL database running in AWS RDS. This subnet only talks to the private subnet, and has no direct connection to the internet. This improves the infrastructure security through not exposing the database instances directly to the internet.
 
-<TODO: ADD NETWORK FLOW DESIGNS>
+<To-do: ADD NETWORK FLOW DESIGNS>
 
 Describe the solution on a higher level. Discuss HLDs.
 
@@ -451,13 +449,41 @@ Describe the solution on a higher level. Discuss HLDs.
 \section{Software in the loop UAV simulator}
 \label{sec:software-in-the-loop}
 
+Software-in-the-loop or SITL is a technique used in prototyping where a robot's code or firmware is simulated and validated through software rather than on actual hardware. When hardware is involved in the simulation, it is called hardware-in-the-loop. This technique was used in the development of the proposed solution in this thesis due to its simplicity to set up compared to using actual hardware, which was the initial plan of the project and still is the long term plan of the project.
+
+There are various ways in which software-in-the-loop can be implemented. This can involve using various simulators like Gazebo, Microsoft Airsim, \textit{et cetera}.
+
+In this project, the simulator of choice was Gazebo <To-do: Cite gazebo>. Gazebo was deployed on a docker container running in headless mode \textit{id est} without the full Gazebo user interface but with only the console terminal. The simulator hosted PX4 autopilot for simulation. PX4 autopilot would then talk to a ground control station like QGroundControl via MAVLink to send and receive commands. The ground control station can also accept joystick connection with controllers like the Sony DualShock 4 wireless controller.
+
+The proposed setup goes like this:
+
+\begin{itemize}
+    \item A Docker container running Gazebo headless and PX4 is spun up in headless mode. The container exposes a couple of ports; one for an off-board application to control the simulated drone via MAVLink API (UDP port 14551) as well as interfaces that can be used by a ground control station (UDP port 14550). The Docker image used is available on Docker Hub <To-do: Cite the source>. The command to run the container is:
+
+          \mint[fontsize=\footnotesize, framesep=2mm, baselinestretch=1.2, breaklines, breakanywhere]{bash}|docker run --rm -it --env PX4_HOME_LAT=53.12758 --env PX4_HOME_LON=17.99353 jonasvautherin/px4-gazebo-headless:1.12.3|
+
+          The container is given two environment variables that are used to set the home position of the simulated drone which in this case is the location of the WSG university.
+    \item Once the container is running, a console will be presented where one can type in commands to control the drone. See figure <To-do: refer to an image of PX4 command after running the container.>
+    \item With the container running, a GCS like QGroundControl can be connected to PX4 via UDP port 14550. From there, the drone's operation performance indicators can be visualized. See figure <To-do: refer to an image of the QGC>
+    \item Also with the exposed off-board API port 14551, a custom application can be built to control the drone using programming languages like Python through the MAVSDK library. See figure <To-do: refer to an image of the Python MAVSDK code.>
+\end{itemize}
+
+Figure \ref{fig:sitl-hld} shows the high-level design of the proposed SITL setup described above.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=1\linewidth]{sitl_hld.png}
+    \caption{Proposed Simulation-In-The-Loop (SITL) architecture high-level design.}
+    \label{fig:sitl-hld}
+    \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
+\end{figure}
+
 %/--------------------------------- SECTION END ---------------------------------/%
 
 
 %/-------------------------------- SECTION START --------------------------------/%
 
 \section{UAV Communication}
-<TODO: Talk about Mavlink... and how mavlink is used in the project>
+<To-do: Talk about MAVLink... and how MAVLink is used in the project>
 
 %/--------------------------------- SECTION END ---------------------------------/%
 
