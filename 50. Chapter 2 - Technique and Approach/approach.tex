@@ -118,7 +118,7 @@ Number 1 through 5 is a CI/CD pipeline that builds a docker image of the web app
     \item The GCS and data analytics services like the telemetry dashboards and the data lake can communicate to each other.
     \item Grafana that runs the telemetry dashboards has a MySQL database that the Grafana service can access in the private isolated subnet. The same goes for the GCS.
     \item Resources deployed in private have no direct communication with the internet, therefore for them to pull updates, a network address translation gateway (NAT gateway) is needed to establish the connection.
-    \item The NAT gateway the goes through the internet gateway then to the internet.
+    \item The NAT gateway then goes through the internet gateway then to the internet.
 \end{enumerate}
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
