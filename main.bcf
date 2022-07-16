@@ -159,7 +159,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>sortlocale</bcf:key>
-      <bcf:value>english</bcf:value>
+      <bcf:value>british</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>sortingtemplatename</bcf:key>
@@ -2383,33 +2383,37 @@
     <bcf:citekey order="33">awscdkdocumentationapps</bcf:citekey>
     <bcf:citekey order="34">awscdkdocumentationapps</bcf:citekey>
     <bcf:citekey order="35">rfc6056</bcf:citekey>
-    <bcf:citekey order="36">vasileprisacariujdrm2017</bcf:citekey>
-    <bcf:citekey order="37">samaanorientxxi2022</bcf:citekey>
-    <bcf:citekey order="38">djimarketshare2021</bcf:citekey>
-    <bcf:citekey order="39">droneslevy2022</bcf:citekey>
-    <bcf:citekey order="40">whoafricarw2020</bcf:citekey>
-    <bcf:citekey order="41">Pedro2020</bcf:citekey>
-    <bcf:citekey order="42">mscdronesinthecloud</bcf:citekey>
-    <bcf:citekey order="43">awsgerenewableenergy</bcf:citekey>
-    <bcf:citekey order="44">px4documentation</bcf:citekey>
-    <bcf:citekey order="45">djienterprisedonesinagriculture</bcf:citekey>
-    <bcf:citekey order="46">dronesinfacilityinspection</bcf:citekey>
-    <bcf:citekey order="47">insiderintelligence2022</bcf:citekey>
-    <bcf:citekey order="48">dronesinsearchandrescue</bcf:citekey>
-    <bcf:citekey order="49">djidronesinlawenforcement</bcf:citekey>
-    <bcf:citekey order="50">dwdronesinbundeswehr</bcf:citekey>
-    <bcf:citekey order="51">mavsdk</bcf:citekey>
-    <bcf:citekey order="52">Chamola2021</bcf:citekey>
-    <bcf:citekey order="53">awswhatisaws2022</bcf:citekey>
-    <bcf:citekey order="54">awspricing2022</bcf:citekey>
-    <bcf:citekey order="55">awsregionsandazs</bcf:citekey>
-    <bcf:citekey order="56">burakawswindfarm2021</bcf:citekey>
-    <bcf:citekey order="57">Giese2021</bcf:citekey>
-    <bcf:citekey order="58">px4hitluserguide</bcf:citekey>
-    <bcf:citekey order="59">awscdkdocumentation</bcf:citekey>
-    <bcf:citekey order="60">awsconstructhub</bcf:citekey>
-    <bcf:citekey order="61">awscdkdocumentationapps</bcf:citekey>
-    <bcf:citekey order="62">rfc6056</bcf:citekey>
+    <bcf:citekey order="36">gazebosimulator</bcf:citekey>
+    <bcf:citekey order="37">px4gazeboheadlesssitldockerimage</bcf:citekey>
+    <bcf:citekey order="38">vasileprisacariujdrm2017</bcf:citekey>
+    <bcf:citekey order="39">samaanorientxxi2022</bcf:citekey>
+    <bcf:citekey order="40">djimarketshare2021</bcf:citekey>
+    <bcf:citekey order="41">droneslevy2022</bcf:citekey>
+    <bcf:citekey order="42">whoafricarw2020</bcf:citekey>
+    <bcf:citekey order="43">Pedro2020</bcf:citekey>
+    <bcf:citekey order="44">mscdronesinthecloud</bcf:citekey>
+    <bcf:citekey order="45">awsgerenewableenergy</bcf:citekey>
+    <bcf:citekey order="46">px4documentation</bcf:citekey>
+    <bcf:citekey order="47">djienterprisedonesinagriculture</bcf:citekey>
+    <bcf:citekey order="48">dronesinfacilityinspection</bcf:citekey>
+    <bcf:citekey order="49">insiderintelligence2022</bcf:citekey>
+    <bcf:citekey order="50">dronesinsearchandrescue</bcf:citekey>
+    <bcf:citekey order="51">djidronesinlawenforcement</bcf:citekey>
+    <bcf:citekey order="52">dwdronesinbundeswehr</bcf:citekey>
+    <bcf:citekey order="53">mavsdk</bcf:citekey>
+    <bcf:citekey order="54">Chamola2021</bcf:citekey>
+    <bcf:citekey order="55">awswhatisaws2022</bcf:citekey>
+    <bcf:citekey order="56">awspricing2022</bcf:citekey>
+    <bcf:citekey order="57">awsregionsandazs</bcf:citekey>
+    <bcf:citekey order="58">burakawswindfarm2021</bcf:citekey>
+    <bcf:citekey order="59">Giese2021</bcf:citekey>
+    <bcf:citekey order="60">px4hitluserguide</bcf:citekey>
+    <bcf:citekey order="61">awscdkdocumentation</bcf:citekey>
+    <bcf:citekey order="62">awsconstructhub</bcf:citekey>
+    <bcf:citekey order="63">awscdkdocumentationapps</bcf:citekey>
+    <bcf:citekey order="64">rfc6056</bcf:citekey>
+    <bcf:citekey order="65">gazebosimulator</bcf:citekey>
+    <bcf:citekey order="66">px4gazeboheadlesssitldockerimage</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
