@@ -28,7 +28,7 @@ The chapter is also going to discuss on the cloud provider, Amazon Web Services 
 An unmanned aerial system commonly referred to as UAS is a set comprised of an unmanned aerial vehicle (UAV) and components that support its operations. UAVs that make a UAS do not carry human pilots but are piloted remotely or autonomously. A UAS is usually comprised of four main components namely,
 
 \begin{itemize}
-    \item An unmanned aerial vehicle also known as a UAV.
+    \item An unmanned aerial vehicle also known as a UAV. Every other component that make a UAS revolves around a UAV to ensure that, depending on the use case, it is able to fulfil the mission it is designed to perform.
     \item A ground control station also known as a GCS, from where human pilots can remotely pilot a UAV or upload mission payload for the UAV to execute autonomously.
     \item Sensors and devices specific to the aerial vehicles' intended mission. These can be cameras or other various sensors.
     \item A data-link between a UAV and a GCS. The data-link can be set up via LTE, Wi-Fi or satellite.
@@ -44,7 +44,7 @@ Figure \ref{fig:solution-hld-a4} shows the high-level design of the proposed unm
 \subsection{Unmanned Aerial Vehicle}
 \label{subsec:uav}
 
-Unmanned aerial vehicle is a term used to refer to an aerial vehicle that has no human onboard pilot but is rather piloted remotely by humans from a remote ground control station or is autonomously piloted using onboard flight algorithms. Unmanned aerial vehicles are also commonly known as UAVs, drones or remotely piloted vehicles (RPV). A UAV in itself is a system because it consists of the multiple components that enable it to fly. Figure \ref{fig:uav-hld} shows a high-level design of the proposed UAV.
+Unmanned aerial vehicle is a term used to refer to an aerial vehicle that has no human onboard pilot but is rather piloted remotely by humans from a remote ground control station or is autonomously piloted using onboard flight algorithms. Unmanned aerial vehicles are also commonly known as UAVs, drones or remotely piloted vehicles (RPV). A UAV in itself is a system because it consists of multiple components and payload that enables it to fulfil its mission. Figure \ref{fig:uav-hld} shows a high-level design of the proposed UAV.
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{uav_hld.png}
@@ -53,12 +53,12 @@ Unmanned aerial vehicle is a term used to refer to an aerial vehicle that has no
     \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
 \end{figure}
 
-As one can see from the design, the proposed UAV consists of about 5 main components. Starting from the top going clockwise they are:
+As one can see from the above design, the proposed UAV consists of about 5 main components. Starting from the top going clockwise they are:
 \begin{itemize}
     \item A cloud infrastructure that hosts web app and data analytics services, where the UAV sends data and receives mission commands from.
     \item An on-premise ground control station where the UAV can also be controlled from.
     \item An LTE/Wi-Fi module that establishes remote network connectivity.
-    \item A companion computer. This hosts multiple software like drivers for various sensors that can be attached to the computer, middleware like the MAVLink router which allows MAVLink traffic to be routed to external destinations, and APIs built with various libraries like MAVSDK\cite{mavsdk} to enhance the UAV capability.
+    \item A companion computer. This hosts multiple software like drivers for various sensors that can be attached to the computer, middleware like the MAVLink router which allows MAVLink traffic to be routed to external interfaces, and APIs built with various libraries like MAVSDK\cite{mavsdk} to enhance the UAV capability.
     \item A flight controller running PX4 firmware and is connected to various other components like the electronic speed controller (ESC), GPS, battery and other sensors or devices.
 \end{itemize}
 
@@ -166,6 +166,7 @@ UAVs come in different classifications depending on various factors like weight 
 \subsubsection*{Classification by wing and rotor shape}
 
 <To-do: ATTACH IMAGE>
+
 %/----------------------------- SUB-SUB-SECTION END -----------------------------/%
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
@@ -257,7 +258,7 @@ The proposed solution is designed based on actual physical hardware components, 
 
 The solution proposed in this thesis was built using various software development, and design tools. The choice of tools was really key to designing and developing an organized and consistent solution, therefore it was important to choose the right tools for the right tasks to help get the expected outcome.
 
-In the next subsections, various used tools during the solution development are going to be listed and discussed.
+In the next subsections, various tools used during the solution development are going to be listed and discussed.
 
 
 %/------------------------------ SUB-SECTION START ------------------------------/%
