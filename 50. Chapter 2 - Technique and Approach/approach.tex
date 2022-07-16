@@ -41,7 +41,7 @@ With the above points in mind, the solution design process started on paper. Fig
     \source{Own work.}
 \end{figure}
 
-As the design started being built to reality, it was evident that deploying the whole AWS infrastructure manually from the AWS console, see figure \ref{fig:aws-console-home}, was going to be a time-consuming and inefficient activity. And this also contradicted the initial idea of building an agile infrastructure that can be easily redeployed in case changes are needed. That is where the thought to build the infrastructure as code using some sort of infrastructure as code (IaC) tool came in. Since the cloud provider of choice was AWS, the best tool for the task was with no doubt the AWS' very own cloud development kit\cite{awscdkdocumentation}.
+As the design started being built to reality, it was evident that deploying the whole AWS infrastructure manually from the AWS console, see figure \ref{fig:aws-console-home}, was going to be a time-consuming and inefficient activity. And this also contradicted the initial idea of building an agile infrastructure that can be easily redeployed in case changes are needed. That is where the thought to build the infrastructure as code using some sort of infrastructure as code (IaC) tool came in. Since the cloud provider of choice was AWS, the best tool for the task was with no doubt the AWS' very own cloud development kit \cite{awscdkdocumentation}.
 
 After the AWS infrastructure was built, the next step was the UAV. The outstanding questions here were:
 
@@ -135,7 +135,7 @@ A typical AWS CDK project is made up of 3 components, namely:
 
 \begin{itemize}
     \item An app. This is the overall set of everything. An AWS CDK project is basically called an AWS CDK app. This consists of constructs.
-    \item Constructs. These represent components that make an AWS infrastructure. They can be an AWS simple storage service (S3), an elastic cloud compute (EC2), an application load balancer (ALB) \textit{et cetera}. AWS has a comprehensive site that shows all the available AWS and community constructs\cite{awsconstructhub}.
+    \item Constructs. These represent components that make an AWS infrastructure. They can be an AWS simple storage service (S3), an elastic cloud compute (EC2), an application load balancer (ALB) \textit{et cetera}. AWS has a comprehensive site that shows all the available AWS and community constructs \cite{awsconstructhub}.
     \item Stacks. These are the unit of deployment in AWS CDK. A stack represents all AWS resources defined within the same scope.
 \end{itemize}
 
@@ -145,7 +145,7 @@ Figure \ref{fig:aws-cdk-app-structure} shows how an AWS CDK app is structured.
     \centering \includegraphics[width=1\linewidth]{aws_cdk_workflow.png}
     \caption{AWS CDK app structure.}
     \label{fig:aws-cdk-app-structure}
-    \source{AWS CDK documentation\cite{awscdkdocumentation}.}
+    \source{AWS CDK documentation \cite{awscdkdocumentation}.}
 \end{figure}
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
@@ -221,7 +221,7 @@ Once each stack is developed, the next step is to deploy it to AWS. Snippet \ref
     \centering \includegraphics[width=1\linewidth]{aws_cdk_app_lifecycle.png}
     \caption{AWS CDK app lifecycle.}
     \label{fig:aws-cdk-app-lifecycle}
-    \source{AWS documentation\cite{awscdkdocumentationapps}.}
+    \source{AWS documentation \cite{awscdkdocumentationapps}.}
 \end{figure}
 
 \begin{center}
@@ -437,9 +437,7 @@ Table \ref{table:private-subnet-inbound} and \ref{table:private-subnet-outbound}
 
 The isolated-private subnet hosts the MySQL database running in AWS RDS. This subnet only talks to the private subnet, and has no direct connection to the internet. This improves the infrastructure security through not exposing the database instances directly to the internet.
 
-<To-do: ADD NETWORK FLOW DESIGNS>
-
-Describe the solution on a higher level. Discuss HLDs.
+<To-do: Complete this subsection>
 
 %/--------------------------------- SECTION END ---------------------------------/%
 
@@ -453,12 +451,12 @@ Software-in-the-loop or SITL is a technique used in prototyping where a robot's 
 
 There are various ways in which software-in-the-loop can be implemented. This can involve using various simulators like Gazebo, Microsoft Airsim, \textit{et cetera}.
 
-In this project, the simulator of choice was Gazebo <To-do: Cite gazebo>. Gazebo was deployed on a docker container running in headless mode \textit{id est} without the full Gazebo user interface but with only the console terminal. The simulator hosted PX4 autopilot for simulation. PX4 autopilot would then talk to a ground control station like QGroundControl via MAVLink to send and receive commands. The ground control station can also accept joystick connection with controllers like the Sony DualShock 4 wireless controller.
+In this project, the simulator of choice was Gazebo \cite{gazebosimulator}. Gazebo was deployed on a docker container running in headless mode \textit{id est} without the full Gazebo user interface but with only the console terminal. The simulator hosted PX4 autopilot for simulation. PX4 autopilot would then talk to a ground control station like QGroundControl via MAVLink to send and receive commands. The ground control station can also accept joystick connection with controllers like the Sony DualShock 4 wireless controller.
 
 The proposed setup goes like this:
 
 \begin{itemize}
-    \item A Docker container running Gazebo headless and PX4 is spun up in headless mode. The container exposes a couple of ports; one for an off-board application to control the simulated drone via MAVLink API (UDP port 14551) as well as interfaces that can be used by a ground control station (UDP port 14550). The Docker image used is available on Docker Hub <To-do: Cite the source>. The command to run the container is:
+    \item A Docker container running Gazebo headless and PX4 is spun up in headless mode. The container exposes a couple of ports; one for an off-board application to control the simulated drone via MAVLink API (UDP port 14551) as well as interfaces that can be used by a ground control station (UDP port 14550). The Docker image used is available on Docker Hub \cite{px4gazeboheadlesssitldockerimage}. The command to run the container is:
 
           \mint[fontsize=\footnotesize, framesep=2mm, baselinestretch=1.2, breaklines, breakanywhere]{bash}|docker run --rm -it --env PX4_HOME_LAT=53.12758 --env PX4_HOME_LON=17.99353 jonasvautherin/px4-gazebo-headless:1.12.3|
 
