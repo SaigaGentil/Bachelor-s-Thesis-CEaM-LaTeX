@@ -29,3 +29,5 @@ Zipline
 UASs
 HelloSky
 hsg
+Wyższa
+HITL
