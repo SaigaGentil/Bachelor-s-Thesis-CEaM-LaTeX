@@ -45,3 +45,4 @@
 {"rule":"MORFOLOGIK_RULE_EN_GB","sentence":"^\\QColored 500 x 200.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_GB","sentence":"^\\QColored 500 x 200.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_GB","sentence":"^\\Q[z-UAV]UAV Unmanned Aerial Vehicle [z-UAS]UAS Unmanned Aerial System [z-GCS]GCS Ground Control Station [z-LTE]LTE Long Term Evolution (Telecommunication) [z-DJI]DJI Da-Jiang Innovations [z-AWS]AWS Amazon Web Services [z-HLD]HLD High-Level Design [z-HHLD]HHLD High-High-Level Design [z-IMU]IMU Inertia Measurement Unit\\E$"}
+{"rule":"ET_AL","sentence":"^\\QOne of the many usages of cloud computing like AWS in the aerospace and energy industries is where Burak et. al developed a cloud and edge solution running on AWS that aimed at increasing turbine maintenance inspections' efficiency through automation and a serverless AWS architecture while reducing operations cost \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
