@@ -147,11 +147,16 @@
 %--------------------------------
 \include{80. Conclusion/conclusion.tex}
 
+\backmatter
 %--------------------------------
 % Chapters - Bibliography
 %--------------------------------
 \cleardoublepage
-\printbibliography
+\pagestyle{plain}
+\printbibliography[
+    title=References,
+    heading=bibintoc
+]
 
 %--------------------------------
 % Chapters - Appendix
