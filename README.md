@@ -23,9 +23,9 @@ Authored on: 01 January 2022
 
 This thesis was written to be submitted to the [Wyższa Szkoła Gospodarki](https://wsg.byd.pl/) university's institute of informatics and mechatronics for the degree of Bachelor's of science in computer engineering and mechatronics.
 
-The thesis was written with Latex. Latex is a software system used for document preparation. When writing, a writer uses plain text as opposed to formatted text found in "What You See Is What You Get" word processors like Microsoft Work,... Latex is commonly used for the production of technical and scientific documentation.
+The thesis was written with Latex. Latex is a software system used for document preparation. When writing, a writer uses plain text as opposed to formatted text found in "What You See Is What You Get" word processors like Microsoft Work, ... Latex is commonly used for the production of technical and scientific documentation.
 
-Latex is free to use and has no license fees. More details on latex can be found on the [official latex project site](https://www.latex-project.org/).
+Latex is free to use and has no licence fees. More details on latex can be found on the [official latex project site](https://www.latex-project.org/).
 
 ## Topic of research / work
 
@@ -50,5 +50,10 @@ Add content here...
 Add content here...
 
 ### Setup
+
+Language used: British English
+Writing style used:
+Bibliography style used: IEEE
+Citation style used: IEEE
 
 Add content here...
