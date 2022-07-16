@@ -84,7 +84,7 @@
 % Code listing with mint package
 %--------------------------------------
 \definecolor{LightGray}{gray}{0.9}
-\renewcommand\listoflistingscaption{List of Source Codes}
+\renewcommand\listoflistingscaption{List of Listings}
 \renewcommand{\listoflistings}{
   \addcontentsline{toc}{chapter}{\listoflistingscaption}
   \listof{listing}{\listoflistingscaption}
@@ -164,7 +164,8 @@
 
 \RequirePackage[            % Bibliography in biber. It has to be loaded after the inputenc package.
     backend=biber,
-    style=ieee
+    style=ieee,
+    dateabbrev=false
 ]{biblatex}
 \RequirePackage{csquotes}  % Load csquotes package. It has to be loaded after the inputenc package.
 
@@ -300,26 +301,9 @@
 %--------------------------------
 % Choose language to work in
 %--------------------------------
-\newcommand{\langpol}{
-    \newcommand{\@lang}{polish}
-    \usepackage[polish]{babel}
-
-    \newtheorem{theorem}{Twierdzenie}
-    \newtheorem{lemma}{Lemat}
-    \newtheorem{corollary}{Wniosek}
-    \newtheorem{definition}{Definicja}
-    \newtheorem{axiom}{Aksjomat}
-    \newtheorem{assumption}{Założenie}
-
-    \AtBeginDocument{
-        \renewcommand{\listfigurename}{Spis rysunków}
-        \renewcommand{\listtablename}{Spis tabel}
-        \renewcommand{\tablename}{Tabela}
-    }
-}
 \newcommand{\langeng}{
     \newcommand{\@lang}{english}
-    \usepackage[english]{babel}
+    \usepackage[australian, british]{babel}
 
     \newtheorem{theorem}{Theorem}
     \newtheorem{lemma}{Lemma}
