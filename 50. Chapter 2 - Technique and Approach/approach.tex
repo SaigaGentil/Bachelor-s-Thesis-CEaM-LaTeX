@@ -461,9 +461,21 @@ The proposed setup goes like this:
           \mint[fontsize=\footnotesize, framesep=2mm, baselinestretch=1.2, breaklines, breakanywhere]{bash}|docker run --rm -it --env PX4_HOME_LAT=53.12758 --env PX4_HOME_LON=17.99353 jonasvautherin/px4-gazebo-headless:1.12.3|
 
           The container is given two environment variables that are used to set the home position of the simulated drone which in this case is the location of the WSG university.
-    \item Once the container is running, a console will be presented where one can type in commands to control the drone. See figure <To-do: refer to an image of PX4 command after running the container.>
-    \item With the container running, a GCS like QGroundControl can be connected to PX4 via UDP port 14550. From there, the drone's operation performance indicators can be visualized. See figure <To-do: refer to an image of the QGC>
-    \item Also with the exposed off-board API port 14551, a custom application can be built to control the drone using programming languages like Python through the MAVSDK library. See figure <To-do: refer to an image of the Python MAVSDK code.>
+    \item Once the container is running, a console will be presented where one can type in commands to control the drone. See figure \ref{fig:mavlink-px4-gazebo-simulator-cli}.
+          \begin{figure}[H]
+              \centering \includegraphics[width=1\linewidth]{mavlink_px4_gazebo_simulator_cli.png}
+              \caption{Gazebo headless with PX4 Docker CLI.}
+              \label{fig:mavlink-px4-gazebo-simulator-cli}
+              \source{Own work.}
+          \end{figure}
+    \item With the container running, a GCS like QGroundControl can be connected to PX4 via UDP port 14550. From there, the drone's operation performance indicators can be visualized. See figure \ref{fig:gcs-comm-link-configuration}<To-do: Add an image of the QGC flight map>
+          \begin{figure}[H]
+              \centering \includegraphics[width=1\linewidth]{gcs_comm_link_configuration.png}
+              \caption{QGroundControl communication link with Gazebo PX4 on port 14550.}
+              \label{fig:gcs-comm-link-configuration}
+              \source{Own work.}
+          \end{figure}
+    \item Also, with the exposed off-board API port 14550, a custom application can be built to control the drone using programming languages like Python through the MAVSDK library. See figure <To-do: refer to an image of the Python MAVSDK code.>
 \end{itemize}
 
 Figure \ref{fig:sitl-hld} shows the high-level design of the proposed SITL setup described above.
