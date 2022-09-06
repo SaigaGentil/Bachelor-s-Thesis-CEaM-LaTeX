@@ -9,7 +9,26 @@ Designing, deploying and implementing a robust and scalable unmanned aerial syst
 
 The cloud component part has specifically posed quite a challenge to make sure that all the components can talk, ensuring that proper firewall and traffic rules are set was not easy at first, until the whole VPC traffic log started being captured and analysed. VPC flow log, an AWS network logging feature that logs all traffic flowing through all network interfaces throughout the VPC, was used to analyse the traffic. The logs would expose how traffic would flow and would indicate where traffic was being blocked. This helped then with the design of the firewall rules.
 
-<To-do: Attach a screenshot of VPC flow log traffic>
+\begin{figure}[H]
+    \centering \includegraphics[width=1\linewidth]{cloud_watch_vpc_flow_log_log_groups.png}
+    \caption{AWS CloudWatch VPC flow log - log groups.}
+    \label{fig:cloud-watch-vpc-flow-log-log-groups}
+    \source{Own work.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering \includegraphics[width=1\linewidth]{cloud_watch_vpc_flow_log_log_events.png}
+    \caption{AWS CloudWatch VPC flow log - log events.}
+    \label{fig:cloud-watch-vpc-flow-log-log-events}
+    \source{Own work.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering \includegraphics[width=1\linewidth]{cloud_watch_vpc_flow_log_logs_insights.png}
+    \caption{AWS CloudWatch VPC flow log - log insights.}
+    \label{fig:cloud-watch-vpc-flow-log-log-insights}
+    \source{Own work.}
+\end{figure}
 
 Other than the networking aspect on AWS, integrating the UAV itself  was also quite challenging. As mentioned throughout this document, the initial idea was to build the solution with physical UAV parts. They were even available, but some parts were missing and due to how difficult it was to find them on the market, in a sense that they had to be ordered from places like China and would take some time to be delivered, it became a blocker to progress the project with actual UAV hardware. The UAV was then simulated, as described in section \ref{sec:simulation}. Simulating the UAV was not that much of a big challenge due to the very good documentation available.
 
