@@ -51,9 +51,9 @@ Add content here...
 
 ### Setup
 
-Language used: British English
-Writing style used:
-Bibliography style used: IEEE
-Citation style used: IEEE
+- Language used: British English
+- Writing style used:
+- Bibliography style used: IEEE
+- Citation style used: IEEE
 
 Add content here...
