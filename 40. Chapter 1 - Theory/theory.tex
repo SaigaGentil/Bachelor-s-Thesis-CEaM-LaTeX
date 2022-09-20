@@ -173,6 +173,35 @@ UAVs come in different classifications depending on various factors like weight 
 
 %/--------------------------------- SECTION END ---------------------------------/%
 
+%/-------------------------------- SECTION START --------------------------------/%
+
+\section{UAV Communication}
+\label{sec:uav-communication}
+
+Throughout a UAV's operation, a UAV talks to various other systems both internal or external like the ground control station or onboard flight computer. To do this, UAVs don't generally use the standard network communication protocols, but they rather use other protocols of which the most popular are:
+
+\begin{itemize}
+    \item MAVLink protocol.
+    \item UranusLink protocol.
+    \item Cyphal protocol.
+\end{itemize}
+
+\subsection{MAVLink}
+\label{subsec:mavlink}
+
+MAVLink is a lightweight open-source communication protocol used by UAVs to communicate either between internal systems or external systems. Having been released in 2009 by Lorenz Meier, it is the most widely used protocol for UAVs \cite{mavlinkdocumentation}. MAVLink implements a bidirectional communication, in a sense that the UAV can send messages to the ground station and the ground station can send messages to the UAV. The proposed solution in this thesis uses MAVLink to communicate with the ground station.
+
+\subsection{UranusLink}
+\label{subsec:uranuslink}
+
+UranusLink is a communication protocol used by UAVs to communicate with external systems. The UAV is packet-oriented and is designed to serve reliable and unreliable services. The protocol was designed to be used for radio communication \cite{Kriz2015}. This means that it cannot be used over networked systems like the internet. This means that it is more prone to data losses. UranusLink is still under development and there is no stable release available yet to the public.
+
+\subsection{Cyphal}
+\label{subsec:cyphal}
+
+Cyphal which was known as UAVCAN before 2022 is a lightweight open-source protocol designed for complex, real-time and high integrity systems to provide low latency communication between UAVs and internal systems securely over various protocols such as CAN, Ethernet \textit{et cetera}. The protocol is built on a publish-subscribe architecture, which means that messages are published to a topic on which various systems can subscribe to receive the messages. \cite{cyphaldocumentation}
+
+%/--------------------------------- SECTION END ---------------------------------/%
 
 %/-------------------------------- SECTION START --------------------------------/%
 
