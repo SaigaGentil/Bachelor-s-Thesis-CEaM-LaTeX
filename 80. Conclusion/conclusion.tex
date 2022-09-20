@@ -5,15 +5,32 @@
 \chapter{Conclusion}
 \label{chap:conclusion}
 
-In the introductory chapter of this thesis, two questions were raised. This chapter is aimed at answering them and discussing on future work that can be done in the area of this thesis' research.
+In this chapter, the research question raised in section \ref{sec:problem-definition} is going to be answered and the results of the project implementation are going to be summarized. The chapter is also going to propose topics for future work in regard to the thesis' area of work.
 
-\section{Question 1: How can one take advantage of cloud computing to deploy an unmanned aerial system in a more efficient, scalable and highly available manner?}
+\section{Research question: What advantage does it bring in running applications and UASs on AWS?}
 
-\section{Question 2: How can cloud computing help in advancing the unmanned aerial mobility sector?}
+The implementation of the proposed solution in this thesis has proven that deploying solutions on AWS can be beneficial in improving their availability, deployment time, agility, and resiliency. The serverless design approach used in the proposed solution, has proven to be very beneficial since all the overhead of maintaining servers running several application services is removed. In real life business operations, this would mean that engineers would be more focused on doing what makes their business thrive rather than focusing of maintaining servers.
+
+During development, It was also observed that it was very easy to test, and deploy resources on the cloud faster due to the employment of the infrastructure as code technique, this has made the solution more agile in a sense that it could easily be deployed on AWS and taken down in minutes. Infrastructure as code also enforced consistency across the infrastructure since everything would be written as code and deployed using the same process.
+
+Furthermore, the designed proposed solution proved to be highly scalable. Application services running in AWS ECS were deployed in auto-scaling groups. Each service was configured with a target number of containers, and the auto-scaling group would make sure that the number of containers is always equal to the target number. This means that if a container crashes, a new one would be created to replace it, and if a container is not needed, it would be destroyed. This is a very important feature of the solution, as it makes the solution highly available and resilient to failures. In addition to that, the solution is highly available because it is deployed in multiple availability zones, meaning that if one availability zone would fail, the other availability zones would still be available and the solution would still be operational.
+
+Finally, deploying the proposed solution on AWS also proved to be highly cost-effective since it is only billed for the resources that are actually used. This means that if the deployed cloud resources would not be used, they would not be billed. This is a big advantage over the traditional on-premises deployment, where the resources are always running and are always billed.
+
+% \section{Question 2: How can cloud computing help in advancing the unmanned aerial mobility sector?}
 
 
 \section{Future Work}
+\label{sec:future-work}
+
+The proposed solution in this thesis has proven to be a very good starting point for a real-life implementation of a cloud-based Unmanned Aerial Mobility solution. However, there are still some improvements that can be made to the proposed solution. This section highlights on those areas of improvement.
 
 \subsection{Low latency, real-time system}
+Unmanned Aerial Vehicles are in most cases required to execute commands sent to them in real time. The proposed solution is not in any way real time, meaning that there would be a delay of a couple of seconds for a command to be executed by the UAV. This is acknowledged, and therefore future work would focus on improving the latency of the solution such that it would be able to operate as a real-time system.
 
-\subsection{Implementing hard}
+Further research is required to assess the use of event-driven information systems which are well suited for real-time systems. Implementing edge computing for mission-critical compute tasks would also improve the latency of the solution as well as the resiliency of the system. This is also an area that requires further research.
+
+\subsection{Implementing the solution with actual hardware}
+Since it was not successful to implement the proposed solution on actual hardware, it would be interesting to try to implement the proposed solution on actual hardware. This would require the use of a real-time operating system, and a real-time capable hardware. The proposed solution would also need to be modified to be able to run on the real-time operating system. This would be a very interesting topic for future work.
+
+This would then prove that the suggested proof of concept proposed in this thesis is feasible to be implemented in real life.
