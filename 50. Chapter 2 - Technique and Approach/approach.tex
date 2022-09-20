@@ -80,7 +80,7 @@ As the development of the quadcopter went on, it became obvious that this approa
 %/-------------------------------- SECTION START --------------------------------/%
 
 \section{Solution description}
-\label{solution-description}
+\label{sec:solution-description}
 
 The proposed solution is a bit vast, here below the designs are going to be described and explained.
 
@@ -435,9 +435,55 @@ Table \ref{table:private-subnet-inbound} and \ref{table:private-subnet-outbound}
 \subsection{Isolated-private subnet}
 \label{isolated-private-subnet}
 
-The isolated-private subnet hosts the MySQL database running in AWS RDS. This subnet only talks to the private subnet, and has no direct connection to the internet. This improves the infrastructure security through not exposing the database instances directly to the internet.
+The isolated-private subnet hosts the MySQL database running in AWS RDS. This subnet only talks to the private subnet, and has no direct connection to the internet. This improves the infrastructure security through not exposing the database instances directly to the internet. The rules for this subnet are defined in such a way that only traffic from the private subnet is allowed in, and only traffic to the private subnet is allowed out. The rules are defined like so:
 
-<To-do: Complete this subsection>
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{6}{|c|}{Inbound traffic}                                \\
+        \hline
+        Rule & Type       & Protocol & Port range & Destination & Allow/Deny \\
+        \hline
+        100  & Custom TCP & TCP (6)  & 3306       & 10.0.2.0/0  & Allow      \\
+        \hline
+        110  & Custom TCP & TCP (6)  & 3306       & 10.0.3.0/0  & Allow      \\
+        \hline
+        *    & All IPV4   & All      & All        & 0.0.0.0/0   & Deny       \\
+        \hline
+    \end{tabular}
+    \caption{Isolated Private subnet NACL inbound traffic rules}
+    \label{table:isolated-private-subnet-inbound}
+\end{table}
+
+\begin{itemize}
+    \item \textbf{Rule 100 and Rule 110:} Allows inbound MySQL/Aurora traffic on port 3306 coming from the private subnets.
+    \item \textbf{Rule *:} Blocks every other non previously evaluated IPv4 traffic.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{6}{|c|}{Outbound traffic}                               \\
+        \hline
+        Rule & Type       & Protocol & Port range & Destination & Allow/Deny \\
+        \hline
+        100  & Custom TCP & TCP (6)  & 1024-65535 & 10.0.2.0/0  & Allow      \\
+        \hline
+        110  & Custom TCP & TCP (6)  & 1024-65535 & 10.0.3.0/0  & Allow      \\
+        \hline
+        *    & All IPV4   & All      & All        & 0.0.0.0/0   & Deny       \\
+        \hline
+    \end{tabular}
+    \caption{Isolated Private subnet NACL outbound traffic rules}
+    \label{table:isolated-private-subnet-outbound}
+\end{table}
+
+\begin{itemize}
+    \item \textbf{Rule 100 and Rule 110:} Allows outbound MySQL/Aurora traffic on port 3306 going to the private subnets.
+    \item \textbf{Rule *:} Blocks every other non previously evaluated IPv4 traffic.
+\end{itemize}
 
 %/--------------------------------- SECTION END ---------------------------------/%
 
@@ -468,15 +514,52 @@ The proposed setup goes like this:
               \label{fig:mavlink-px4-gazebo-simulator-cli}
               \source{Own work.}
           \end{figure}
-    \item With the container running, a GCS like QGroundControl can be connected to PX4 via UDP port 14550. From there, the drone's operation performance indicators can be visualized. See figure \ref{fig:gcs-comm-link-configuration}<To-do: Add an image of the QGC flight map>
+    \item With the container running, a GCS like QGroundControl can be connected to PX4 via UDP port 14550. From there, the drone's operation performance indicators can be visualized on a flight map. Figure \ref{fig:gcs-comm-link-configuration} shows the configurations set in QGroundControl to allow it to communicate with the UAV via MAVLink. Figure \ref{fig:qgc-flight-map} shows the UAV conducting a mission after and being visualized on a flight map.
+
           \begin{figure}[H]
               \centering \includegraphics[width=1\linewidth]{gcs_comm_link_configuration.png}
               \caption{QGroundControl communication link with Gazebo PX4 on port 14550.}
               \label{fig:gcs-comm-link-configuration}
               \source{Own work.}
           \end{figure}
-    \item Also, with the exposed off-board API port 14550, a custom application can be built to control the drone using programming languages like Python through the MAVSDK library. See figure <To-do: refer to an image of the Python MAVSDK code.>
+
+          \begin{figure}[H]
+              \centering \includegraphics[width=1\linewidth]{qgc_flight_map.png}
+              \caption{QGroundControl flight map of a UAV in operation.}
+              \label{fig:qgc-flight-map}
+              \source{Own work.}
+          \end{figure}
+
+    \item Also, with the exposed off-board API port 14550, a custom application can be built to control the drone using programming languages like Python through the MAVSDK library. The python snippet in source code \ref{code:uav_api_telemetry} shows simple lines of code that pull metrics from the drone remotely.
+
+          \begin{center}
+              \captionsetup{type=listing}
+              \inputminted[
+                  frame=single,
+                  framesep=2mm,
+                  baselinestretch=1.2,
+                  fontsize=\footnotesize,
+                  breaklines,
+                  breakanywhere,
+                  linenos
+              ]{python}{config/code/9c24473b16969e53ec5c3b231bf0ee93/uav_api_telemetry.py}
+              \captionof{listing}{UAV telemetry acquisition code snippet.}
+              \label{code:uav_api_telemetry}
+          \end{center}
+
+    \item Once the above code is executed, from the IDE console pulled telemetry can be visualized, see figure \ref{fig:uav-telemetry-console}. This includes the battery usage percentage, UAV location, \textit{et cetera}.
+
+          \begin{figure}[H]
+              \centering \includegraphics[width=1\linewidth]{uav_telemetry_console.png}
+              \caption{PyCharm console with UAV telemetry collected via MAVSDK Python API.}
+              \label{fig:uav-telemetry-console}
+              \source{Own work.}
+          \end{figure}
+
+    \item These metrics can then later be pushed to a time series database like Elasticsearch to be stored, ready to be visualized on dashboards like Grafana. The dashboard can then be used to monitor the UAV performance.
 \end{itemize}
+
+
 
 Figure \ref{fig:sitl-hld} shows the high-level design of the proposed SITL setup described above.
 
@@ -486,37 +569,6 @@ Figure \ref{fig:sitl-hld} shows the high-level design of the proposed SITL setup
     \label{fig:sitl-hld}
     \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
 \end{figure}
-
-%/--------------------------------- SECTION END ---------------------------------/%
-
-
-%/-------------------------------- SECTION START --------------------------------/%
-
-\section{UAV Communication}
-\label{sec:uav-communication}
-
-Throughout a UAV's operation, a UAV talks to various other systems both internal or external like the ground control station or onboard flight computer. To do this, UAVs don't generally use the standard network communication protocols, but they rather use other protocols of which the most popular are:
-
-\begin{itemize}
-    \item MAVLink protocol.
-    \item UranusLink protocol.
-    \item Cyphal protocol.
-\end{itemize}
-
-\subsection{MAVLink}
-\label{subsec:mavlink}
-
-MAVLink is a lightweight open-source communication protocol used by UAVs to communicate either between internal systems or external systems. Having been released in 2009 by Lorenz Meier, it is the most widely used protocol for UAVs \cite{mavlinkdocumentation}. MAVLink implements a bidirectional communication, in a sense that the UAV can send messages to the ground station and the ground station can send messages to the UAV. The proposed solution in this thesis uses MAVLink to communicate with the ground station.
-
-\subsection{UranusLink}
-\label{subsec:uranuslink}
-
-UranusLink is a communication protocol used by UAVs to communicate with external systems. The UAV is packet-oriented and is designed to serve reliable and unreliable services. The protocol was designed to be used for radio communication \cite{Kriz2015}. This means that it cannot be used over networked systems like the internet. This means that it is more prone to data losses. UranusLink is still under development and there is no stable release available yet to the public.
-
-\subsection{Cyphal}
-\label{subsec:cyphal}
-
-Cyphal which was known as UAVCAN before 2022 is a lightweight open-source protocol designed for complex, real-time and high integrity systems to provide low latency communication between UAVs and internal systems securely over various protocols such as CAN, Ethernet \textit{et cetera}. The protocol is built on a publish-subscribe architecture, which means that messages are published to a topic on which various systems can subscribe to receive the messages. \cite{cyphaldocumentation}
 
 %/--------------------------------- SECTION END ---------------------------------/%
 
