@@ -1,0 +1,49 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/usr/bin/env python3}
+
+\PYG{k+kn}{import} \PYG{n+nn}{asyncio}
+\PYG{k+kn}{from} \PYG{n+nn}{mavsdk} \PYG{k+kn}{import} \PYG{n}{System}
+
+
+\PYG{k}{async} \PYG{k}{def} \PYG{n+nf}{run}\PYG{p}{():}
+    \PYG{c+c1}{\PYGZsh{} Instantiate a System object which in MAVSDK API represents the vehicle and allows to interact with it.}
+    \PYG{n}{drone} \PYG{o}{=} \PYG{n}{System}\PYG{p}{(}\PYG{n}{mavsdk\PYGZus{}server\PYGZus{}address}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}127.0.0.1\PYGZsq{}}\PYG{p}{,} \PYG{n}{port}\PYG{o}{=}\PYG{l+m+mi}{50051}\PYG{p}{)}
+    \PYG{k}{await} \PYG{n}{drone}\PYG{o}{.}\PYG{n}{connect}\PYG{p}{(}\PYG{n}{system\PYGZus{}address}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}udp://:14540\PYGZdq{}}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Start the tasks}
+    \PYG{n}{asyncio}\PYG{o}{.}\PYG{n}{ensure\PYGZus{}future}\PYG{p}{(}\PYG{n}{print\PYGZus{}battery}\PYG{p}{(}\PYG{n}{drone}\PYG{p}{))}
+    \PYG{n}{asyncio}\PYG{o}{.}\PYG{n}{ensure\PYGZus{}future}\PYG{p}{(}\PYG{n}{print\PYGZus{}gps\PYGZus{}info}\PYG{p}{(}\PYG{n}{drone}\PYG{p}{))}
+    \PYG{n}{asyncio}\PYG{o}{.}\PYG{n}{ensure\PYGZus{}future}\PYG{p}{(}\PYG{n}{print\PYGZus{}in\PYGZus{}air}\PYG{p}{(}\PYG{n}{drone}\PYG{p}{))}
+    \PYG{n}{asyncio}\PYG{o}{.}\PYG{n}{ensure\PYGZus{}future}\PYG{p}{(}\PYG{n}{print\PYGZus{}position}\PYG{p}{(}\PYG{n}{drone}\PYG{p}{))}
+
+
+\PYG{c+c1}{\PYGZsh{} Define tasks.    }
+\PYG{k}{async} \PYG{k}{def} \PYG{n+nf}{print\PYGZus{}battery}\PYG{p}{(}\PYG{n}{drone}\PYG{p}{):}
+    \PYG{k}{async} \PYG{k}{for} \PYG{n}{battery} \PYG{o+ow}{in} \PYG{n}{drone}\PYG{o}{.}\PYG{n}{telemetry}\PYG{o}{.}\PYG{n}{battery}\PYG{p}{():}
+      \PYG{c+c1}{\PYGZsh{} Get the remaining battery percentage.}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Battery: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{battery}\PYG{o}{.}\PYG{n}{remaining\PYGZus{}percent}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+
+\PYG{k}{async} \PYG{k}{def} \PYG{n+nf}{print\PYGZus{}gps\PYGZus{}info}\PYG{p}{(}\PYG{n}{drone}\PYG{p}{):}
+    \PYG{k}{async} \PYG{k}{for} \PYG{n}{gps\PYGZus{}info} \PYG{o+ow}{in} \PYG{n}{drone}\PYG{o}{.}\PYG{n}{telemetry}\PYG{o}{.}\PYG{n}{gps\PYGZus{}info}\PYG{p}{():}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}GPS info: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{gps\PYGZus{}info}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+
+\PYG{k}{async} \PYG{k}{def} \PYG{n+nf}{print\PYGZus{}in\PYGZus{}air}\PYG{p}{(}\PYG{n}{drone}\PYG{p}{):}
+    \PYG{k}{async} \PYG{k}{for} \PYG{n}{in\PYGZus{}air} \PYG{o+ow}{in} \PYG{n}{drone}\PYG{o}{.}\PYG{n}{telemetry}\PYG{o}{.}\PYG{n}{in\PYGZus{}air}\PYG{p}{():}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}In air: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{in\PYGZus{}air}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+
+\PYG{k}{async} \PYG{k}{def} \PYG{n+nf}{print\PYGZus{}position}\PYG{p}{(}\PYG{n}{drone}\PYG{p}{):}
+    \PYG{k}{async} \PYG{k}{for} \PYG{n}{position} \PYG{o+ow}{in} \PYG{n}{drone}\PYG{o}{.}\PYG{n}{telemetry}\PYG{o}{.}\PYG{n}{position}\PYG{p}{():}
+      \PYG{c+c1}{\PYGZsh{} Get the latitude and longitude.}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{position}\PYG{p}{)}
+
+
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZdq{}}\PYG{p}{:}
+    \PYG{c+c1}{\PYGZsh{} Start the main function}
+    \PYG{n}{asyncio}\PYG{o}{.}\PYG{n}{ensure\PYGZus{}future}\PYG{p}{(}\PYG{n}{run}\PYG{p}{())}
+
+    \PYG{c+c1}{\PYGZsh{} Runs the event loop until the program is canceled with e.g. CTRL\PYGZhy{}C}
+    \PYG{n}{asyncio}\PYG{o}{.}\PYG{n}{get\PYGZus{}event\PYGZus{}loop}\PYG{p}{()}\PYG{o}{.}\PYG{n}{run\PYGZus{}forever}\PYG{p}{()}
+\end{Verbatim}
