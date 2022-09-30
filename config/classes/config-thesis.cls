@@ -411,6 +411,9 @@
 \newcommand{\specialization}[1]{
     \newcommand{\@specialization}{#1}
 }
+\newcommand{\course}[1]{
+    \newcommand{\@course}{#1}
+}
 \newcommand{\studentnumber}[1]{
     \newcommand{\@studentnumber}{#1}
 }
@@ -422,6 +425,9 @@
 }
 \newcommand{\engtitle}[1]{
     \newcommand{\@engtitle}{#1}
+}
+\newcommand{\universityname}[1]{
+    \newcommand{\@universityname}{#1}
 }
 
 %--------------------------------
@@ -435,24 +441,32 @@
     \pagenumbering{gobble}
 
     \begin{center}
+        \large
+        \LARGE
+        \textbf
+        \@universityname \\
+        \hfill \break
+        \hfill \break
         %\sffamily
         \ifnum \pdf@strcmp{\@lang}{polish} = 0
             \includegraphics[width=\textwidth]{config/header.png} \\
         \fi
         \ifnum \pdf@strcmp{\@lang}{english} = 0
-            \includegraphics[width=\textwidth]{config/img/wsg-logo_EN.png} \\
+            \includegraphics[scale=0.5]{config/img/wsg_logo_c7_small.png} \\
         \fi
         \hfill \break
         \hfill \break
-        \ifnum \pdf@strcmp{\@lang}{polish} = 0
-            Institute \@institute \\
-        \fi
-        \ifnum \pdf@strcmp{\@lang}{english} = 0
-            Institute of \@institute \\
-        \fi
+        \textbf
+        \@author \\
         \hfill \break
         \hfill \break
+        \large
+        \LARGE
+        \textbf
+        \@title \\
         \hfill \break
+        \hfill \break
+        \normalsize
         \ifnum \pdf@strcmp{\ThesisType}{Engineer} = 0
             \ifnum \pdf@strcmp{\@lang}{polish} = 0
                 \includegraphics[width=\textwidth]{config/title-inz.png} \\
@@ -469,35 +483,18 @@
                 \includegraphics[width=\textwidth]{config/title-mgr-eng.png} \\
             \fi
         \fi
-        \hfill \break
+        %\hfill \break
         \ifnum \pdf@strcmp{\@lang}{polish} = 0
-            na~kierunku \@field \\
+            Course: \textbf\@course \\
         \fi
         \ifnum \pdf@strcmp{\@lang}{english} = 0
-            in~the~field~of~study~of \@field \\
+            Course: \textbf\@course \\
         \fi
         \ifnum \pdf@strcmp{\@lang}{polish} = 0
-            w~specjalności \@specialization \\
-        \fi
-        % \ifnum \pdf@strcmp{\@lang}{english} = 0
-        %     and~specialisation \@specialization \\
-        % \fi
-        \hfill \break
-        \hfill \break
-        \large
-        \LARGE
-        \textbf
-        \@title \\
-        \hfill \break
-        \hfill \break
-        \textbf
-        \@author \\
-        \normalsize
-        \ifnum \pdf@strcmp{\@lang}{polish} = 0
-            Numer~studentnumberu \@studentnumber \\
+            w~specjalności \textbf\@field \\
         \fi
         \ifnum \pdf@strcmp{\@lang}{english} = 0
-            Student's transcript number \textbf \@studentnumber \\
+            Specialty: \textbf\@field \\
         \fi
         \hfill \break
     \end{center}
@@ -524,6 +521,19 @@
         \vfill
         \hfill \break
     \end{flushright}
+
+    \begin{flushleft}
+        \ifnum \pdf@strcmp{\@lang}{polish} = 0
+            Student's transcript number \\
+        \fi
+        \ifnum \pdf@strcmp{\@lang}{english} = 0
+            Student's transcript number \\
+        \fi
+        \textbf
+        \@studentnumber \\
+        \vfill
+        \hfill \break
+    \end{flushleft}
 
     \begin{center}
         \ifnum \pdf@strcmp{\@lang}{polish} = 0
