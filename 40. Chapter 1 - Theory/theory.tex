@@ -12,7 +12,8 @@
 
 %/-------------------------------- CHAPTER START --------------------------------/%
 
-\chapter{Theory}
+% Renamed as requested by Tomasz
+\chapter{Introduction to Concepts and Methodologies Used}
 \label{chap:theory}
 
 In this chapter, key background concepts and methodologies used in the thesis are going to be discussed. The chapter is going to explain what is meant by unmanned aerial system and its components.
@@ -48,9 +49,10 @@ Unmanned aerial vehicle is a term used to refer to an aerial vehicle that has no
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{uav_hld.png}
-    \caption{Proposed unmanned aerial vehicle high-level design.}
+    \caption{Proposed unmanned aerial vehicle high-level design. [Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.]}
     \label{fig:uav-hld}
-    \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
+    % Removed as requested by Tomasz
+    % \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
 \end{figure}
 
 As one can see from the above design, the proposed UAV consists of about 5 main components. Starting from the top going clockwise they are:
@@ -97,8 +99,9 @@ UAVs come in different classifications depending on various factors like weight 
         Hypersonic                            & <15.2         & >200       \\
         \hline
     \end{tabular}
-    \caption{UAV classification by altitude and range.}
-    \source{Vinay et. al \cite{Chamola2021}}
+    \caption{UAV classification by altitude and range. \cite{Chamola2021}}
+    % Removed as requested by Tomasz
+    % \source{Vinay et. al \cite{Chamola2021}}
     \label{table:uav-classification-by-alt-range}
 \end{table}
 
@@ -124,8 +127,9 @@ UAVs come in different classifications depending on various factors like weight 
         Military                            & reconnaissance, attacks                   \\
         \hline
     \end{tabular}
-    \caption{UAV classification by application and use case.}
-    \source{Adapted from \cite{Chamola2021}}
+    \caption{UAV classification by application and use case. \cite{Chamola2021}}
+    % Removed as requested by Tomasz
+    % \source{Adapted from \cite{Chamola2021}}
     \label{table:uav-classification-by-application}
 \end{table}
 
@@ -153,8 +157,9 @@ UAVs come in different classifications depending on various factors like weight 
         Large  & > 150              \\
         \hline
     \end{tabular}
-    \caption{UAV classification by weight.}
-    \source{Adapted from \cite{Chamola2021}}
+    \caption{UAV classification by weight. \cite{Chamola2021}}
+    % Removed as requested by Tomasz
+    % \source{Adapted from \cite{Chamola2021}}
     \label{table:uav-classification-by-weight}
 \end{table}
 
@@ -210,14 +215,16 @@ Cyphal which was known as UAVCAN before 2022 is a lightweight open-source protoc
 
 Amazon Web Services, commonly known as AWS, is a cloud platform provided by Amazon that provides various service offerings such as platform as a service, PaaS, and infrastructure as a service, IaaS \cite{awswhatisaws2022}. AWS makes it easy for developers, engineers and businesses to deploy scalable, resilient, agile and highly available infrastructures for databases, servers, applications, storage, analytics, \textit{et cetera}. AWS offers attractive and cost saving payment strategies of which there are pay-as-you-go, save when you commit, and pay less by using more \cite{awspricing2022}.
 
-AWS has a concept of regions, which refers to a physical location around the world, where multiple data centres are deployed in a cluster. Each cluster of data centre is called an availability zone \cite{awsregionsandazs}. AWS set this up like this to guarantee high availability and reliability of deployed resources.
-
 \begin{figure}[H]
     \centering \includegraphics[width=0.9\linewidth]{aws_console_home.png}
-    \caption{AWS console home.}
+    \caption{AWS console home. [Own work.]}
     \label{fig:aws-console-home}
-    \source{Own work.}
+    % Removed as requested by Tomasz
+    % \source{Own work.}
 \end{figure}
+
+AWS has a concept of regions, which refers to a physical location around the world, where multiple data centres are deployed in a cluster. Each cluster of data centre is called an availability zone \cite{awsregionsandazs}. AWS set this up like this to guarantee high availability and reliability of deployed resources.
+
 
 Cloud computing is an emerging technology that has revolutionized how businesses go online. Cloud computing has been and still is of great use in various industries, including the aerospace and energy industries. One of the many usages of cloud computing like AWS in the aerospace and energy industries is where Burak et. al developed a cloud and edge solution running on AWS that aimed at increasing turbine maintenance inspections' efficiency through automation and a serverless AWS architecture while reducing operations cost \cite{burakawswindfarm2021}. The solution proposed by Burak et al was composed of drones, machine learning and internet of things processes running on cloud and edge.
 
@@ -299,9 +306,10 @@ Visual Studio Code or VS Code is a source code editor provided by Microsoft. It 
 
 \begin{figure}[H]
     \centering \includegraphics[width=0.9\linewidth]{ms_vs_code_main_view.png}
-    \caption{Microsoft Visual Studio Code editor.}
+    \caption{Microsoft Visual Studio Code editor. [Own work.]}
     \label{fig:ms-vs-code}
-    \source{Own work.}
+    % Removed as requested by Tomasz
+    % \source{Own work.}
 \end{figure}
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
@@ -316,9 +324,10 @@ The AWS infrastructure was built as code using Python programming language. Due 
 
 \begin{figure}[H]
     \centering \includegraphics[width=0.9\linewidth]{pycharm_main_view.png}
-    \caption{PyCharm editor.}
+    \caption{PyCharm editor. [Own work.]}
     \label{fig:pycharm}
-    \source{Own work.}
+    % Removed as requested by Tomasz
+    % \source{Own work.}
 \end{figure}
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
@@ -333,9 +342,10 @@ PhpStorm is an integrated development environment created by JetBrains specifica
 
 \begin{figure}[H]
     \centering \includegraphics[width=0.9\linewidth]{phpstorm_main_view.png}
-    \caption{PhpStorm editor.}
+    \caption{PhpStorm editor. [Own work.]}
     \label{fig:phpstorm}
-    \source{Own work.}
+    % Removed as requested by Tomasz
+    % \source{Own work.}
 \end{figure}
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
@@ -350,9 +360,9 @@ Several user interface components used across the project like icons and logos, 
 
 \begin{figure}[H]
     \centering \includegraphics[width=0.9\linewidth]{affinity_designer_main_view.png}
-    \caption{Affinity Designer editor.}
+    \caption{Affinity Designer editor. [Own work.]}
     \label{fig:affinity-designer}
-    \source{Own work.}
+    % \source{Own work.}
 \end{figure}
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
@@ -367,9 +377,9 @@ One of the fundamentals of software development and coding projects generally is
 
 \begin{figure}[H]
     \centering \includegraphics[width=0.9\linewidth]{github_main_view.png}
-    \caption{GitHub repository for the AWS infrastructure code.}
+    \caption{GitHub repository for the AWS infrastructure code. [Own work.]}
     \label{fig:github}
-    \source{Own work.}
+    % \source{Own work.}
 \end{figure}
 
 
@@ -382,9 +392,9 @@ Microsoft Visio is an application part of the Microsoft Office family that is us
 
 \begin{figure}[H]
     \centering \includegraphics[width=0.9\linewidth]{ms_visio_main_view.png}
-    \caption{Microsoft Visio.}
+    \caption{Microsoft Visio. [Own work.]}
     \label{fig:ms-visio}
-    \source{Own work.}
+    % \source{Own work.}
 \end{figure}
 
 %/------------------------------- SUB-SECTION END -------------------------------/%

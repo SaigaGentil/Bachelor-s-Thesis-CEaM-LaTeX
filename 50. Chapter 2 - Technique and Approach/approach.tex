@@ -12,7 +12,8 @@
 
 %/-------------------------------- CHAPTER START --------------------------------/%
 
-\chapter{Methodology and setup}
+% Renamed as requested by Tomasz
+\chapter{Proposed Solution}
 \label{chap:methodology-and-setup}
 
 In this chapter, the solution is going to be explained in details. The reason behind various design choices is going to be explained elaborately as well as the technical aspects of the solution.
@@ -36,9 +37,10 @@ With the above points in mind, the solution design process started on paper. Fig
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{initial_designs_2.jpg}
-    \caption{Initial draft architecture designs.}
+    \caption{Initial draft architecture designs. [Own work.]}
     \label{fig:initial-draft-designs}
-    \source{Own work.}
+    % Removed as requested by Tomasz
+    % \source{Own work.}
 \end{figure}
 
 As the design started being built to reality, it was evident that deploying the whole AWS infrastructure manually from the AWS console, see figure \ref{fig:aws-console-home}, was going to be a time-consuming and inefficient activity. And this also contradicted the initial idea of building an agile infrastructure that can be easily redeployed in case changes are needed. That is where the thought to build the infrastructure as code using some sort of infrastructure as code (IaC) tool came in. Since the cloud provider of choice was AWS, the best tool for the task was with no doubt the AWS' very own cloud development kit \cite{awscdkdocumentation}.
@@ -67,9 +69,10 @@ The above questions drove the next development stage. The UAV type of choice was
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{quadcopter_components_compressed.png}
-    \caption{Quadcopter hardware components.}
+    \caption{Quadcopter hardware components. [Own work.]}
     \label{fig:quadcopter-hardware-components}
-    \source{Own work.}
+    % Removed as requested by Tomasz
+    % \source{Own work.}
 \end{figure}
 
 As the development of the quadcopter went on, it became obvious that this approach was not the best way to go, especially for a proof-of-concept (POC) solution mainly due to how costly it was becoming. At some point the wire connectors were even insufficient, and it came to notice that a power module was also needed, and it would take too long to order the parts online. The idea to build the actual physical quadcopter was then put on-hold, and it was decided to rather use simulation tools to simulate the actual quadcopter. Section \ref{sec:software-in-the-loop} elaborates more on how the simulation was implemented and set up.
@@ -93,9 +96,10 @@ One of the solution development best practice is to design first before attempti
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{aws_architecture_hld.png}
-    \caption{Proposed AWS architecture high-level design.}
+    \caption{Proposed AWS architecture high-level design. [Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.]}
     \label{fig:aws-architecture-hld}
-    \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
+    % Removed as requested by Tomasz
+    % \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
 \end{figure}
 
 Below are the explanations of the numbered items in the figure \ref{fig:aws-architecture-hld}:
@@ -131,6 +135,14 @@ Number 1 through 5 is a CI/CD pipeline that builds a docker image of the web app
 
 The AWS infrastructure described in section \ref{subsec:aws-architecture-hld} is deployed as code using AWS cloud development kit (AWS CDK). AWS CDK allows developers to build AWS infrastructures in an agile manner by using normal programming languages. This allows developers to take advantage of programming idioms like loops, variables, conditionals and inheritance to build robust AWS infrastructures. This also means that software engineering practices like source control, testing and code reviews can be used since the infrastructure is basically standard code. Currently, AWS CDK supports Python, JavaScript, C\#, Go, and Typescript programming languages.
 
+\begin{figure}[H]
+    \centering \includegraphics[width=1\linewidth]{aws_cdk_workflow.png}
+    \caption{AWS CDK app structure. \cite{awscdkdocumentation}}
+    \label{fig:aws-cdk-app-structure}
+    % Removed as requested by Tomasz
+    % \source{AWS CDK documentation \cite{awscdkdocumentation}.}
+\end{figure}
+
 A typical AWS CDK project is made up of 3 components, namely:
 
 \begin{itemize}
@@ -140,13 +152,6 @@ A typical AWS CDK project is made up of 3 components, namely:
 \end{itemize}
 
 Figure \ref{fig:aws-cdk-app-structure} shows how an AWS CDK app is structured.
-
-\begin{figure}[H]
-    \centering \includegraphics[width=1\linewidth]{aws_cdk_workflow.png}
-    \caption{AWS CDK app structure.}
-    \label{fig:aws-cdk-app-structure}
-    \source{AWS CDK documentation \cite{awscdkdocumentation}.}
-\end{figure}
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
 
@@ -162,9 +167,10 @@ Once the AWS CLI is installed, type the command \mintinline[breaklines, breakany
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{aws_configure_output.png}
-    \caption{AWS configure CLI output.}
+    \caption{AWS configure CLI output. [Own work.]}
     \label{fig:aws-configure-output}
-    \source{Own work.}
+    % Removed as requested by Tomasz
+    % \source{Own work.}
 \end{figure}
 
 The next step is to then install AWS CDK from node package manager (NPM) with \mintinline[breaklines, breakanywhere]{bash}{npm install -g aws-cdk}. This will download and install the latest aws-cdk package on the local workstation. The '-g' flag makes the package available globally on the workstation.
@@ -177,9 +183,10 @@ Next, get the account number from the AWS CLI using the AWS security token servi
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{cdk_pre_bootstrap.png}
-    \caption{AWS STS and configure commands output.}
+    \caption{AWS STS and configure commands output. [Own work.]}
     \label{fig:aws-account-numbre-region}
-    \source{Own work.}
+    % Removed as requested by Tomasz
+    % \source{Own work.}
 \end{figure}
 
 With the account number and the region name, AWS CDK can be bootstrapped now. Bootstrapping in AWS refers to the process of creating assets (local files, directories, docker image, \textit{et cetera}) that need to be deployed with the stack. These assets are deployed to an AWS S3 bucket for AWS CloudFormation to use them during stack deployment. Execute command \mintinline[breaklines, breakanywhere]{bash}{cdk bootstrap aws://560995733478/eu-central-1} to bootstrap AWS CDK.
@@ -200,9 +207,10 @@ After completing the previous steps, we have an app with a default stack but wit
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{cdk_ls.png}
-    \caption{Proposed solution AWS stacks.}
+    \caption{Proposed solution AWS stacks. [Own work.]}
     \label{fig:aws-stacks}
-    \source{Own work.}
+    % Removed as requested by Tomasz
+    % \source{Own work.}
 \end{figure}
 
 Each of the stacks defines several services needed to build the whole overall infrastructure.
@@ -219,9 +227,10 @@ Once each stack is developed, the next step is to deploy it to AWS. Snippet \ref
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{aws_cdk_app_lifecycle.png}
-    \caption{AWS CDK app lifecycle.}
+    \caption{AWS CDK app lifecycle. [\cite{awscdkdocumentationapps}]}
     \label{fig:aws-cdk-app-lifecycle}
-    \source{AWS documentation \cite{awscdkdocumentationapps}.}
+    % Removed as requested by Tomasz
+    % \source{AWS documentation \cite{awscdkdocumentationapps}.}
 \end{figure}
 
 \begin{center}
@@ -279,9 +288,10 @@ AWS' Virtual Private Cloud also known as VPC concept, which is simply an isolate
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{aws_network_hld.png}
-    \caption{AWS network high-level design.}
+    \caption{AWS network high-level design. [Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.]}
     \label{fig:aws-network-hld}
-    \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
+    % Removed as requested by Tomasz
+    % \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
 \end{figure}
 
 %/------------------------------- SUB-SECTION END -------------------------------/%
@@ -311,7 +321,7 @@ The public subnet in this proposed solution does not contain any resources, exce
         *    & All IPV4    & All      & All        & 0.0.0.0/0 & Deny       \\
         \hline
     \end{tabular}
-    \caption{Public subnet NACL inbound traffic rules}
+    \caption{Public subnet NACL inbound traffic rules. [Own work.]}
     \label{table:public-subnet-inbound}
 \end{table}
 
@@ -339,7 +349,7 @@ The public subnet in this proposed solution does not contain any resources, exce
         *    & All IPV4    & All      & All        & 0.0.0.0/0   & Deny       \\
         \hline
     \end{tabular}
-    \caption{Public subnet NACL outbound traffic rules}
+    \caption{Public subnet NACL outbound traffic rules. [Own work.]}
     \label{table:public-subnet-outbound}
 \end{table}
 
@@ -383,7 +393,7 @@ Table \ref{table:private-subnet-inbound} and \ref{table:private-subnet-outbound}
         *    & All IPV4    & All      & All        & 0.0.0.0/0   & Deny       \\
         \hline
     \end{tabular}
-    \caption{Private subnet NACL inbound traffic rules}
+    \caption{Private subnet NACL inbound traffic rules. [Own work.]}
     \label{table:private-subnet-inbound}
 \end{table}
 
@@ -416,7 +426,7 @@ Table \ref{table:private-subnet-inbound} and \ref{table:private-subnet-outbound}
         *    & All IPV4    & All      & All        & 0.0.0.0/0   & Deny       \\
         \hline
     \end{tabular}
-    \caption{Private subnet NACL outbound traffic rules}
+    \caption{Private subnet NACL outbound traffic rules. [Own work.]}
     \label{table:private-subnet-outbound}
 \end{table}
 
@@ -452,7 +462,7 @@ The isolated-private subnet hosts the MySQL database running in AWS RDS. This su
         *    & All IPV4   & All      & All        & 0.0.0.0/0   & Deny       \\
         \hline
     \end{tabular}
-    \caption{Isolated Private subnet NACL inbound traffic rules}
+    \caption{Isolated Private subnet NACL inbound traffic rules. [Own work.]}
     \label{table:isolated-private-subnet-inbound}
 \end{table}
 
@@ -476,7 +486,7 @@ The isolated-private subnet hosts the MySQL database running in AWS RDS. This su
         *    & All IPV4   & All      & All        & 0.0.0.0/0   & Deny       \\
         \hline
     \end{tabular}
-    \caption{Isolated Private subnet NACL outbound traffic rules}
+    \caption{Isolated Private subnet NACL outbound traffic rules. [Own work.]}
     \label{table:isolated-private-subnet-outbound}
 \end{table}
 
@@ -510,24 +520,27 @@ The proposed setup goes like this:
     \item Once the container is running, a console will be presented where one can type in commands to control the drone. See figure \ref{fig:mavlink-px4-gazebo-simulator-cli}.
           \begin{figure}[H]
               \centering \includegraphics[width=1\linewidth]{mavlink_px4_gazebo_simulator_cli.png}
-              \caption{Gazebo headless with PX4 Docker CLI.}
+              \caption{Gazebo headless with PX4 Docker CLI. [Own work.]}
               \label{fig:mavlink-px4-gazebo-simulator-cli}
-              \source{Own work.}
+              % Removed as requested by Tomasz
+              %   \source{Own work.}
           \end{figure}
     \item With the container running, a GCS like QGroundControl can be connected to PX4 via UDP port 14550. From there, the drone's operation performance indicators can be visualized on a flight map. Figure \ref{fig:gcs-comm-link-configuration} shows the configurations set in QGroundControl to allow it to communicate with the UAV via MAVLink. Figure \ref{fig:qgc-flight-map} shows the UAV conducting a mission after and being visualized on a flight map.
 
           \begin{figure}[H]
               \centering \includegraphics[width=1\linewidth]{gcs_comm_link_configuration.png}
-              \caption{QGroundControl communication link with Gazebo PX4 on port 14550.}
+              \caption{QGroundControl communication link with Gazebo PX4 on port 14550. [Own work.]}
               \label{fig:gcs-comm-link-configuration}
-              \source{Own work.}
+              % Removed as requested by Tomasz
+              %   \source{Own work.}
           \end{figure}
 
           \begin{figure}[H]
               \centering \includegraphics[width=1\linewidth]{qgc_flight_map.png}
-              \caption{QGroundControl flight map of a UAV in operation.}
+              \caption{QGroundControl flight map of a UAV in operation. [Own work.]}
               \label{fig:qgc-flight-map}
-              \source{Own work.}
+              % Removed as requested by Tomasz
+              %   \source{Own work.}
           \end{figure}
 
     \item Also, with the exposed off-board API port 14550, a custom application can be built to control the drone using programming languages like Python through the MAVSDK library. The python snippet in source code \ref{code:uav_api_telemetry} shows simple lines of code that pull metrics from the drone remotely.
@@ -551,9 +564,10 @@ The proposed setup goes like this:
 
           \begin{figure}[H]
               \centering \includegraphics[width=1\linewidth]{uav_telemetry_console.png}
-              \caption{PyCharm console with UAV telemetry collected via MAVSDK Python API.}
+              \caption{PyCharm console with UAV telemetry collected via MAVSDK Python API. [Own work.]}
               \label{fig:uav-telemetry-console}
-              \source{Own work.}
+              % Removed as requested by Tomasz
+              %   \source{Own work.}
           \end{figure}
 
     \item These metrics can then later be pushed to a time series database like Elasticsearch to be stored, ready to be visualized on dashboards like Grafana. The dashboard can then be used to monitor the UAV performance.
@@ -565,9 +579,10 @@ Figure \ref{fig:sitl-hld} shows the high-level design of the proposed SITL setup
 
 \begin{figure}[H]
     \centering \includegraphics[width=1\linewidth]{sitl_hld.png}
-    \caption{Proposed Simulation-In-The-Loop (SITL) architecture high-level design.}
+    \caption{Proposed Simulation-In-The-Loop (SITL) architecture high-level design. [Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.]}
     \label{fig:sitl-hld}
-    \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
+    % Removed as requested by Tomasz
+    % \source{Own work. Designed with Microsoft Visio. Refer to \ref{subsec:ms-visio}.}
 \end{figure}
 
 %/--------------------------------- SECTION END ---------------------------------/%
